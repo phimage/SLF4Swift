@@ -45,7 +45,7 @@ public class NullLogger: SimpleLogger {
         super.init(level: SimpleLogLevel.Off, name: "null")
     }
 
-    override public func isLoggable<T>(level: SimpleLogLevel) -> Bool {
+    override public func isLoggable<T>(level: LogLevelType) -> Bool {
         return false
     }
     override public func doLog(message: String) {
@@ -68,19 +68,19 @@ public class NullLoggerFactory: LoggerFactoryType {
         return Static.instance!
     }
 
-    public var defaultLogger: NullLogger = NullLogger.instance
+    public var defaultLogger: LoggerType = NullLogger.instance
     
-    public var allLoggers: [NullLogger] {
+    public var allLoggers: [LoggerType] {
         return [defaultLogger]
     }
     
-    public func getLogger(name: String) -> NullLogger? {
+    public func getLogger(name: String) -> LoggerType? {
         return defaultLogger
     }
-    public func createLogger(name: String) -> NullLogger {
+    public func createLogger(name: String) -> LoggerType {
         return defaultLogger
     }
-    public func removeLogger(name: String) -> NullLogger? {
+    public func removeLogger(name: String) -> LoggerType? {
         return nil
     }
     public func removeAllLoggers() {

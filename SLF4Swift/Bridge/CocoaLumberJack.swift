@@ -26,22 +26,6 @@ SOFTWARE.
 */
 
 import Foundation
-/*import CocoaLumberjack
+import CocoaLumberjack
 
-func info(message: String){
-    DDLogInfo(message)
-}
-func error(message: String){
-    DDLogError(message)
-}
-func warn(message: String){
-    DDLogWarn(message)
-}
-func debug(message: String){
-    DDLogDebug(message)
-}
-func verbose(message: String){
-    DDLogVerbose(message)
-}
-*/
 

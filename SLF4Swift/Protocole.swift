@@ -28,22 +28,16 @@ SOFTWARE.
 import Foundation
 
 /* level for message */
-public protocol LogLevelType: Hashable, Comparable {
+public protocol LogLevelType {
     var level: Int {get}
     var name: String {get}
-    
-    static var levels: [Self] {get}
-    
-    // var isWarnOrError: Bool
 }
 
 /* a logger */
 public protocol LoggerType {
     
-    typealias T: LogLevelType
-    
     var name: String {get}
-    var level: T {get}
+    var level: LogLevelType {get}
     
     func info(message: String)
     func error(message: String)
@@ -51,23 +45,22 @@ public protocol LoggerType {
     func warn(message: String)
     func debug(message: String)
     func verbose(message: String)
-    func log(level: T,_ message: String)
+    func log(level: LogLevelType,_ message: String)
 
-    func isLoggable(level: T) -> Bool
+    func isLoggable(level: LogLevelType) -> Bool
     
 }
 
 /* a factory for logger */
 public protocol LoggerFactoryType {
-    typealias T: LoggerType
     
-    var defaultLogger: T {get}
-    var allLoggers: [T] {get}
+    var defaultLogger: LoggerType {get}
+    var allLoggers: [LoggerType] {get}
 
     // TODO replace String by Hashable or Printable key?
-    func getLogger(name: String) -> T?
-    func createLogger(name: String) -> T
-    func removeLogger(name: String) -> T?
+    func getLogger(name: String) -> LoggerType?
+    func createLogger(name: String) -> LoggerType
+    func removeLogger(name: String) -> LoggerType?
     func removeAllLoggers()
     
 }

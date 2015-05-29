@@ -57,9 +57,7 @@ public func <(lhs: SimpleLogLevel, rhs: SimpleLogLevel) -> Bool {
 }
 
 public class SimpleLogger : LoggerType {
-    typealias T = SimpleLogLevel
-    
-    public var level: SimpleLogLevel
+    public var level: LogLevelType
     public var name: String
     public var prefixClosure: (() -> String)?
     
@@ -86,7 +84,7 @@ public class SimpleLogger : LoggerType {
     public  func verbose(message: String) {
         log(SimpleLogLevel.Verbose, message)
     }
-    public func log(level: SimpleLogLevel,_ message: String) {
+    public func log(level: LogLevelType,_ message: String) {
         if isLoggable(level) {
             if let closure = prefixClosure {
                 let prefix = closure()
@@ -96,8 +94,8 @@ public class SimpleLogger : LoggerType {
             }
         }
     }
-    public func isLoggable(level: SimpleLogLevel) -> Bool {
-        return self.level <= level
+    public func isLoggable(level: LogLevelType) -> Bool {
+        return self.level.level <= level.level
     }
     
     public func doLog(message: String) {
@@ -107,8 +105,6 @@ public class SimpleLogger : LoggerType {
 }
 
 public class SimpleLoggerFactory: LoggerFactoryType {
-    typealias T = SimpleLogger
-    
     public class var sharedInstance : SimpleLoggerFactory {
         struct Static {
             static var onceToken : dispatch_once_t = 0
@@ -121,21 +117,26 @@ public class SimpleLoggerFactory: LoggerFactoryType {
         return Static.instance!
     }
     
-    private var loggers = Dictionary<String,SimpleLogger>()
+    private var loggers = Dictionary<String,LoggerType>()
     
-    public var defaultLogger: SimpleLogger = SimpleLogger(level: SimpleLogLevel.Info, name: "root")
+    public var defaultLogger: LoggerType = SimpleLogger(level: SimpleLogLevel.Info, name: "root")
     
-    public var allLoggers: [SimpleLogger] {
-        return Array<SimpleLogger>(loggers.values)
+    public var allLoggers: [LoggerType] {
+        return Array<LoggerType>(loggers.values)
     }
     
-    public func getLogger(name: String) -> SimpleLogger? {
+    public func getLogger(name: String) -> LoggerType? {
         return loggers[name]
     }
-    public func createLogger(name: String) -> SimpleLogger {
-        return loggers[name] ?? SimpleLogger(level: SimpleLogLevel.Info, name: name)
+    public func createLogger(name: String) -> LoggerType {
+        if let logger = loggers[name] {
+            return logger
+        }
+        let newLogger = SimpleLogger(level: SimpleLogLevel.Info, name: name)
+        loggers[name] = newLogger
+        return newLogger
     }
-    public func removeLogger(name: String) -> SimpleLogger? {
+    public func removeLogger(name: String) -> LoggerType? {
         return loggers.removeValueForKey(name)
     }
     public func removeAllLoggers() {

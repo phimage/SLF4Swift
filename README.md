@@ -8,7 +8,7 @@
 [<img align="left" src="logo-128x128.png" hspace="20">](#logo) Simple Log Facade for Swift serves as a simple facade for logging frameworks allowing the end user to plug in the desired logging framework at deployment time
 
 ```swift
-let myLogger: MyLoggerType = SLF4Swift.getLogger("loggerName")
+let myLogger = SLF4Swift.getLogger("loggerName")
 myLogger.info("my info message")
 myLogger.log(.Error, "my error message")
 ```
@@ -29,7 +29,7 @@ SLF4Swift.setSharedFactory(NullLoggerFactory.instance)
 
 You can install with the same way one bridge to a logging framework which implement `LogFactoryType`
 
-Some are already implemented into [bridge folder](/bridge)
+Some are already implemented into [bridge folder](/SLF4Swift/Bridge)
 ```swift
 SLF4Swift.setSharedFactory(CocoaLumberJackFactory.instance)
 ```
@@ -38,13 +38,14 @@ Don't hesitate to fork this repository and PR additionnal `LogFactoryType` for y
 # Getting Logger
 Getting the default one
 ```swift
-let myLogger: MyLoggerType = SLF4Swift.defaultLogger()
+let myLogger = SLF4Swift.defaultLogger()
 ```
 You an create a new logger by specifying a key (could be a class or a framework name)
 ```swift
-let myLogger: MyLoggerType = SLF4Swift.createLogger("loggerName")
+let myLogger = SLF4Swift.createLogger("loggerName")
 
-if let myLogger: MyLoggerType = SLF4Swift.getLogger("loggerName") {..} // could be nil if not created before (a factory could never return nil)
+if let myLogger = SLF4Swift.getLogger("loggerName") {..}
+// with getLogger a logger could be nil if not created before
 ```
 
 # Printing #
@@ -64,7 +65,7 @@ if myLogger.isLoggable(.Verbose) {
 # Setup #
 ## Using [cocoapods](http://cocoapods.org/) ##
 
-Add `pod 'SLF4Swift', :git => 'https://github.com/phimage/SLF4Swift.git'` to your `Podfile` and run `pod install`. 
+Add `pod 'SLF4Swift', :git => 'https://github.com/phimage/SLF4Swift.git'` to your `Podfile` and run `pod install`.
 
 Add `use_frameworks!` to the end of the `Podfile`.
 
@@ -78,9 +79,9 @@ Add `pod 'SLF4Swift/CocoaLumberjack', :git => 'https://github.com/phimage/SLF4Sw
 2. Add the framework to your project
 
 # Roadmap
-- Shortcut functions for default logger from shared factory 
-- Replace `String` by `Printable`?
-- More `LogFactoryType` for logging framework
+- Replace `String` by `Printable` object? (then to "\(object)" in code)
+- Add some `LogFactoryType` implementations for well known logging frameworks
+- Allow to use another key type for logger?
 
 # Licence #
 ```

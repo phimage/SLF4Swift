@@ -39,36 +39,35 @@ public class SLF4Swift {
         #endif
     }
 
-    private static var _sharedFactory: AnyObject? = nil
+    private static var _sharedFactory: LoggerFactoryType? = nil
 
-    public class func setSharedFactory<T: LoggerFactoryType>(factory: T) {
-        _sharedFactory = factory as? AnyObject
+    public class func setSharedFactory(factory: LoggerFactoryType) {
+        _sharedFactory = factory
     }
     
-    public class func getSharedFactory<T: LoggerFactoryType>() -> T {
+    public class func getSharedFactory() -> LoggerFactoryType {
         if _sharedFactory == nil {
             initialize()
         }
-       return _sharedFactory as! T
+       return _sharedFactory!
     }
 
-    public class func defaultLogger<F: LoggerFactoryType, T:LoggerType where T == F.T>() -> T {
-        let factory: F = SLF4Swift.getSharedFactory()
+    public class func defaultLogger() -> LoggerType {
+        let factory: LoggerFactoryType = SLF4Swift.getSharedFactory()
         return factory.defaultLogger
     }
-    public class func getLogger<F: LoggerFactoryType, T:LoggerType where T == F.T>(name: String) -> T? {
-        let factory: F = SLF4Swift.getSharedFactory()
+    public class func getLogger(name: String) -> LoggerType? {
+        let factory: LoggerFactoryType = SLF4Swift.getSharedFactory()
         return factory.getLogger(name)
     }
-    public class func createLogger<F: LoggerFactoryType, T:LoggerType where T == F.T>(name: String) -> T? {
-        let factory: F = SLF4Swift.getSharedFactory()
+    public class func createLogger(name: String) -> LoggerType {
+        let factory: LoggerFactoryType = SLF4Swift.getSharedFactory()
         return factory.createLogger(name)
     }
 }
 
-/*public func SLFLogInfo<F: LoggerFactoryType, T:LoggerType where T == F.T>(message: String){
-    let logger: T = SLF4Swift.defaultLogger()
-    logger.info(message)
+public func SLFLogInfo(message: String){
+    SLF4Swift.defaultLogger().info(message)
 }
 public func SLFLogError(message: String){
     SLF4Swift.defaultLogger().error(message)
@@ -85,6 +84,6 @@ public func SLFLogDebug(message: String){
 public func SLFLogVerbose(message: String){
     SLF4Swift.defaultLogger().verbose(message)
 }
-public func SLFLog<T: LogLevelType>(level: T, message: String){
-    SLF4Swift.defaultLogger().log(level, message: message)
-}*/
+public func SLFLog(level: SimpleLogLevel, message: String){
+    SLF4Swift.defaultLogger().log(level, message)
+}

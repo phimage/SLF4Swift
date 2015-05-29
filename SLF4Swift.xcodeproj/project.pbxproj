@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4498EC31B18C47500E6E770 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C4498EC21B18C47500E6E770 /* README.md */; };
 		C4A518F01B1738080017AD2B /* Protocole.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518EF1B1738080017AD2B /* Protocole.swift */; };
 		C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B3ED531B17191A00D807DA /* SLF4Swift.swift */; };
 		C4A518FA1B174C790017AD2B /* SimpleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F71B1747F60017AD2B /* SimpleLogger.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4498EC21B18C47500E6E770 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C4A518EF1B1738080017AD2B /* Protocole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocole.swift; sourceTree = "<group>"; };
 		C4A518F11B173DB00017AD2B /* NSLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogger.swift; sourceTree = "<group>"; };
 		C4A518F31B173E230017AD2B /* NullLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullLogger.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		C4B3ED2D1B17190400D807DA = {
 			isa = PBXGroup;
 			children = (
+				C4498EC21B18C47500E6E770 /* README.md */,
 				C4B3ED391B17190400D807DA /* SLF4Swift */,
 				C4B3ED461B17190500D807DA /* SLF4SwiftTests */,
 				C4B3ED381B17190400D807DA /* Products */,
@@ -242,6 +245,7 @@
 				C4A518FD1B1750E00017AD2B /* NSLogger.swift in Sources */,
 				C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */,
 				C4A518F01B1738080017AD2B /* Protocole.swift in Sources */,
+				C4498EC31B18C47500E6E770 /* README.md in Sources */,
 				C4A518FC1B1750DE0017AD2B /* NullLogger.swift in Sources */,
 				C4A518FB1B1750D50017AD2B /* StringLogger.swift in Sources */,
 				C4A518FA1B174C790017AD2B /* SimpleLogger.swift in Sources */,
