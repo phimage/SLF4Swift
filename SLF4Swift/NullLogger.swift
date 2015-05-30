@@ -27,7 +27,7 @@ SOFTWARE.
 
 import Foundation
 
-public class NullLogger: SimpleLogger {
+public class NullLogger: SLFLogger {
 
     public class var instance : NullLogger {
         struct Static {
@@ -42,20 +42,18 @@ public class NullLogger: SimpleLogger {
     }
 
     private init() {
-        super.init(level: SimpleLogLevel.Off, name: "null")
+        super.init(level: SLFLogLevel.Off, name: "null")
     }
 
     override public func isLoggable<T>(level: LogLevelType) -> Bool {
         return false
     }
-    override public func doLog(message: String) {
+    override public func doLog(message: LogMessageType) {
         // do nothing
     }
 }
 
-public class NullLoggerFactory: LoggerFactoryType {
-    typealias T = NullLogger
-    
+public class NullLoggerFactory: UniqueLoggerFactoryType {
     public class var instance : NullLoggerFactory {
         struct Static {
             static var onceToken : dispatch_once_t = 0
@@ -68,22 +66,8 @@ public class NullLoggerFactory: LoggerFactoryType {
         return Static.instance!
     }
 
-    public var defaultLogger: LoggerType = NullLogger.instance
-    
-    public var allLoggers: [LoggerType] {
-        return [defaultLogger]
+    internal init() {
+        super.init(logger: NullLogger.instance)
     }
-    
-    public func getLogger(name: String) -> LoggerType? {
-        return defaultLogger
-    }
-    public func createLogger(name: String) -> LoggerType {
-        return defaultLogger
-    }
-    public func removeLogger(name: String) -> LoggerType? {
-        return nil
-    }
-    public func removeAllLoggers() {
-        // nothing
-    }
+ 
 }

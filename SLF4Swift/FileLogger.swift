@@ -1,5 +1,5 @@
 //
-//  NSLogger.swift
+//  FileLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -27,8 +27,25 @@ SOFTWARE.
 
 import Foundation
 
-public class NSLogger: SLFLogger {
+public class FileLogger: SLFLogger {
+    
+    var fileHandle: NSFileHandle!
+
+    public init?(level: SLFLogLevel, forWritingAtPath path: String, name: String? = nil) {
+        fileHandle = NSFileHandle(forWritingAtPath: path)
+        super.init(level: level, name: name ?? path)
+        if fileHandle == nil {
+            return nil
+        }
+    }
+    
     override public func doLog(message: LogMessageType) {
-        NSLog(message)
+        if let data = (message as NSString).dataUsingEncoding(NSUTF8StringEncoding) {
+            fileHandle.writeData(data)
+        }
+    }
+    
+    public func close() {
+        fileHandle.closeFile()
     }
 }

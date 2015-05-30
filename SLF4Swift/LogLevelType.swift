@@ -1,5 +1,5 @@
 //
-//  NSLogger.swift
+//  Protocole.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -27,8 +27,39 @@ SOFTWARE.
 
 import Foundation
 
-public class NSLogger: SLFLogger {
-    override public func doLog(message: LogMessageType) {
-        NSLog(message)
+/* level to filter message */
+public protocol LogLevelType {
+    /* integer to compare log level */
+    var level: Int {get}
+    /* name of level, used to print level if necessarry */
+    var name: String {get}
+}
+
+public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable {
+    case Off, Severe, Error, Warn, Info, Debug, Verbose, All
+    
+    public var level: Int {
+        return rawValue
     }
+    
+    public var name: String {
+        switch(self) {
+        case Off: return "Off"
+        case Severe: return "Severe"
+        case Error: return "Error"
+        case Warn: return "Warn"
+        case Info: return "Info"
+        case Debug: return "Debug"
+        case Verbose: return "Verbose"
+        case All: return "All"
+        }
+    }
+    
+    public static var levels: [SLFLogLevel] {return [Off, Severe, Error, Warn, Info, Debug, Verbose, All]}
+}
+public func ==(lhs: SLFLogLevel, rhs: SLFLogLevel) -> Bool {
+    return lhs.rawValue == rhs.rawValue
+}
+public func <(lhs: SLFLogLevel, rhs: SLFLogLevel) -> Bool {
+    return lhs.rawValue < rhs.rawValue
 }

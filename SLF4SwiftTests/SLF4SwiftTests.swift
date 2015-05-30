@@ -29,18 +29,18 @@ class SLF4SwiftTests: XCTestCase {
         SLFLogWarn("SLFLogWarn")
         SLFLogDebug("SLFLogDebug")
         SLFLogVerbose("SLFLogVerbose")
-        SLFLog(SimpleLogLevel.Info, "SLFLog")
+        SLFLog(.Info, "SLFLog")
     }
     
     func testDefaultLogger() {
-        let logger: LoggerType = SLF4Swift.defaultLogger()
+        let logger: LoggerType = SLF4Swift.defaultLogger
         logger.info("info message")
         logger.error("error")
         logger.severe("severe")
         logger.warn("warn")
         logger.debug("debug")
         logger.verbose("verbose")
-        logger.log(SimpleLogLevel.Info,"log")
+        logger.log(.Info,"log")
     }
     
     
@@ -68,7 +68,7 @@ class SLF4SwiftTests: XCTestCase {
         logger.warn("warn")
         logger.debug("debug")
         logger.verbose("verbose")
-        logger.log(SimpleLogLevel.Info,"log")
+        logger.log(.Info,"log")
 
     }
 }

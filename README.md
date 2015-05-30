@@ -18,9 +18,9 @@ A Simple Log Facade allow
 - to log into your framework and let the end user to capture this logs, avoiding the use of `println()` or `NSLog()`
 
 # Installing a logger factory
-By default is installed a `SimpleLoggerFactory`, which use `println()` to log
+By default is installed a `SLFLoggerFactory`, which use `println()` to log
 ```swift
-SLF4Swift.setSharedFactory(SimpleLoggerFactory.sharedInstance)
+SLF4Swift.setSharedFactory(SLFLoggerFactory.sharedInstance)
 ```
 To disable log, a `NullLoggerFactory` can be setted or add `NULL_LOGGER` to *"Other Swift Flags"* into *"Swift Compiler - Custom Flags"* section
 ```swift
@@ -38,7 +38,7 @@ Don't hesitate to fork this repository and PR additionnal `LogFactoryType` for y
 # Getting Logger
 Getting the default one
 ```swift
-let myLogger = SLF4Swift.defaultLogger()
+let myLogger = SLF4Swift.defaultLogger
 ```
 You an create a new logger by specifying a key (could be a class or a framework name)
 ```swift

@@ -1,5 +1,5 @@
 //
-//  NSLogger.swift
+//  LastLogLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -24,11 +24,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 import Foundation
 
-public class NSLogger: SLFLogger {
+/* Keep only last log */
+public class LastLogLogger: SLFLogger {
+    
+    public var value: LogMessageType?
+
+    public init(level: SLFLogLevel, initialValue: String = "", name: String = "lastlog") {
+        super.init(level: level, name: name)
+    }
+    
     override public func doLog(message: LogMessageType) {
-        NSLog(message)
+        value = message
     }
 }
+

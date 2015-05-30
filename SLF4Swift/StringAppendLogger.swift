@@ -1,5 +1,5 @@
 //
-//  Protocole.swift
+//  StringAppendLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -27,40 +27,22 @@ SOFTWARE.
 
 import Foundation
 
-/* level for message */
-public protocol LogLevelType {
-    var level: Int {get}
-    var name: String {get}
+/* Keep all log into a String. Useful to get framework log. Be careful of memorie issues */
+public class StringAppendLogger: SLFLogger {
+
+    var value: NSMutableString
+    
+    public var stringValue: String{
+        return value as String
+    }
+    
+    public init(level: SLFLogLevel, initialValue: String = "", name: String = "append") {
+        self.value = NSMutableString(string: initialValue)
+        super.init(level: level, name: name)
+    }
+    
+    override public func doLog(message: LogMessageType) {
+       value.appendString(message)
+    }
 }
 
-/* a logger */
-public protocol LoggerType {
-    
-    var name: String {get}
-    var level: LogLevelType {get}
-    
-    func info(message: String)
-    func error(message: String)
-    func severe(message: String)
-    func warn(message: String)
-    func debug(message: String)
-    func verbose(message: String)
-    func log(level: LogLevelType,_ message: String)
-
-    func isLoggable(level: LogLevelType) -> Bool
-    
-}
-
-/* a factory for logger */
-public protocol LoggerFactoryType {
-    
-    var defaultLogger: LoggerType {get}
-    var allLoggers: [LoggerType] {get}
-
-    // TODO replace String by Hashable or Printable key?
-    func getLogger(name: String) -> LoggerType?
-    func createLogger(name: String) -> LoggerType
-    func removeLogger(name: String) -> LoggerType?
-    func removeAllLoggers()
-    
-}

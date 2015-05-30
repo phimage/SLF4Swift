@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40808841B1A5A92007FCA48 /* LoggerFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808831B1A5A92007FCA48 /* LoggerFactoryType.swift */; };
+		C40808861B1A5E3D007FCA48 /* LoggerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808851B1A5E3D007FCA48 /* LoggerType.swift */; };
+		C40808881B1A5FA2007FCA48 /* LastLogLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808871B1A5FA2007FCA48 /* LastLogLogger.swift */; };
+		C408088A1B1A610E007FCA48 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808891B1A610E007FCA48 /* FileLogger.swift */; };
 		C4498EC31B18C47500E6E770 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C4498EC21B18C47500E6E770 /* README.md */; };
-		C4A518F01B1738080017AD2B /* Protocole.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518EF1B1738080017AD2B /* Protocole.swift */; };
+		C4A518F01B1738080017AD2B /* LogLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518EF1B1738080017AD2B /* LogLevelType.swift */; };
 		C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B3ED531B17191A00D807DA /* SLF4Swift.swift */; };
-		C4A518FA1B174C790017AD2B /* SimpleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F71B1747F60017AD2B /* SimpleLogger.swift */; };
-		C4A518FB1B1750D50017AD2B /* StringLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F51B1743090017AD2B /* StringLogger.swift */; };
+		C4A518FB1B1750D50017AD2B /* StringAppendLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F51B1743090017AD2B /* StringAppendLogger.swift */; };
 		C4A518FC1B1750DE0017AD2B /* NullLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F31B173E230017AD2B /* NullLogger.swift */; };
 		C4A518FD1B1750E00017AD2B /* NSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F11B173DB00017AD2B /* NSLogger.swift */; };
 		C4B3ED3D1B17190400D807DA /* SLF4Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B3ED3C1B17190400D807DA /* SLF4Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -31,12 +34,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C40808831B1A5A92007FCA48 /* LoggerFactoryType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerFactoryType.swift; sourceTree = "<group>"; };
+		C40808851B1A5E3D007FCA48 /* LoggerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerType.swift; sourceTree = "<group>"; };
+		C40808871B1A5FA2007FCA48 /* LastLogLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastLogLogger.swift; sourceTree = "<group>"; };
+		C40808891B1A610E007FCA48 /* FileLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
 		C4498EC21B18C47500E6E770 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		C4A518EF1B1738080017AD2B /* Protocole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocole.swift; sourceTree = "<group>"; };
+		C4A518EF1B1738080017AD2B /* LogLevelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogLevelType.swift; sourceTree = "<group>"; };
 		C4A518F11B173DB00017AD2B /* NSLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLogger.swift; sourceTree = "<group>"; };
 		C4A518F31B173E230017AD2B /* NullLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullLogger.swift; sourceTree = "<group>"; };
-		C4A518F51B1743090017AD2B /* StringLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringLogger.swift; sourceTree = "<group>"; };
-		C4A518F71B1747F60017AD2B /* SimpleLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleLogger.swift; sourceTree = "<group>"; };
+		C4A518F51B1743090017AD2B /* StringAppendLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringAppendLogger.swift; sourceTree = "<group>"; };
 		C4B3ED371B17190400D807DA /* SLF4Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SLF4Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3ED3B1B17190400D807DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3ED3C1B17190400D807DA /* SLF4Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLF4Swift.h; sourceTree = "<group>"; };
@@ -69,10 +75,11 @@
 		C4A518EE1B17357A0017AD2B /* Impl */ = {
 			isa = PBXGroup;
 			children = (
-				C4A518F71B1747F60017AD2B /* SimpleLogger.swift */,
 				C4A518F31B173E230017AD2B /* NullLogger.swift */,
 				C4A518F11B173DB00017AD2B /* NSLogger.swift */,
-				C4A518F51B1743090017AD2B /* StringLogger.swift */,
+				C4A518F51B1743090017AD2B /* StringAppendLogger.swift */,
+				C40808871B1A5FA2007FCA48 /* LastLogLogger.swift */,
+				C40808891B1A610E007FCA48 /* FileLogger.swift */,
 			);
 			name = Impl;
 			sourceTree = "<group>";
@@ -99,8 +106,10 @@
 		C4B3ED391B17190400D807DA /* SLF4Swift */ = {
 			isa = PBXGroup;
 			children = (
-				C4A518EF1B1738080017AD2B /* Protocole.swift */,
 				C4B3ED531B17191A00D807DA /* SLF4Swift.swift */,
+				C4A518EF1B1738080017AD2B /* LogLevelType.swift */,
+				C40808851B1A5E3D007FCA48 /* LoggerType.swift */,
+				C40808831B1A5A92007FCA48 /* LoggerFactoryType.swift */,
 				C4A518EE1B17357A0017AD2B /* Impl */,
 				C4C4F5B31B17619C00877B61 /* Bridge */,
 				C4B3ED3C1B17190400D807DA /* SLF4Swift.h */,
@@ -244,11 +253,14 @@
 			files = (
 				C4A518FD1B1750E00017AD2B /* NSLogger.swift in Sources */,
 				C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */,
-				C4A518F01B1738080017AD2B /* Protocole.swift in Sources */,
+				C4A518F01B1738080017AD2B /* LogLevelType.swift in Sources */,
+				C408088A1B1A610E007FCA48 /* FileLogger.swift in Sources */,
 				C4498EC31B18C47500E6E770 /* README.md in Sources */,
+				C40808881B1A5FA2007FCA48 /* LastLogLogger.swift in Sources */,
 				C4A518FC1B1750DE0017AD2B /* NullLogger.swift in Sources */,
-				C4A518FB1B1750D50017AD2B /* StringLogger.swift in Sources */,
-				C4A518FA1B174C790017AD2B /* SimpleLogger.swift in Sources */,
+				C4A518FB1B1750D50017AD2B /* StringAppendLogger.swift in Sources */,
+				C40808861B1A5E3D007FCA48 /* LoggerType.swift in Sources */,
+				C40808841B1A5A92007FCA48 /* LoggerFactoryType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
