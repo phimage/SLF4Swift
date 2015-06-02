@@ -102,7 +102,7 @@ Some basic loggers are already implemented into [implementation folder](/SLF4Swi
 
 Some backend factories are already implemented into [backend folder](/SLF4Swift/Backend)
 ```swift
-SLF4Swift.setSharedFactory(CocoaLumberJackFactory.instance)
+SLF4Swift.setSharedFactory(CocoaLumberjackMacroLoggerFactory.instance)
 ```
 
 Don't hesitate to fork this repository and PR additionnal `LogFactoryType` for your logging framework

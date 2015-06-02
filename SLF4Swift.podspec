@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.source       = { :git => "https://github.com/phimage/SLF4Swift.git" }
+  s.source       = { :git => "https://github.com/phimage/SLF4Swift.git", :tag => '0.9.1' }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 
