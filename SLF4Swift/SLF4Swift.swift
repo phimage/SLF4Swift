@@ -27,21 +27,27 @@ SOFTWARE.
 
 import Foundation
 
-/* register a shared LoggerFactoryType to install a logger system */
+/* 
+ * Register a shared LoggerFactoryType to install a logger system
+ * Get loggers, default one or by key
+ */
 public class SLF4Swift {
 
     static var initializeToken : dispatch_once_t = 0
     public class func initialize() {
-        // set default factory according to preprocessor macros
-        #if NULL_LOGGER
-        SLF4Swift.setSharedFactory(NullLoggerFactory.instance)
-        #else
-        SLF4Swift.setSharedFactory(SLFLoggerFactory.sharedInstance)
-        #endif
+        if _sharedFactory == nil {
+            // set default factory according to preprocessor macros
+            #if DEBUG
+                SLF4Swift.setSharedFactory(SLFLoggerFactory.sharedInstance)
+                #else
+                SLF4Swift.setSharedFactory(NullLoggerFactory.instance)
+            #endif
+        }
     }
 
     private static var _sharedFactory: LoggerFactoryType? = nil
 
+    // Set a custom logger factory
     public class func setSharedFactory(factory: LoggerFactoryType) {
         _sharedFactory = factory
     }

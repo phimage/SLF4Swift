@@ -1,5 +1,5 @@
 //
-//  CocoaLumberJack.swift
+//  StringAppendLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -26,6 +26,23 @@ SOFTWARE.
 */
 
 import Foundation
-import CocoaLumberjack
 
+/* Keep all log into a String. Useful to get framework log. Be careful of memory issues */
+public class StringAppendLogger: SLFLogger {
+
+    var value: NSMutableString
+    
+    public var stringValue: String{
+        return value as String
+    }
+    
+    public init(level: SLFLogLevel, initialValue: String = "", name: String = "append") {
+        self.value = NSMutableString(string: initialValue)
+        super.init(level: level, name: name)
+    }
+    
+    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+       value.appendString(message)
+    }
+}
 

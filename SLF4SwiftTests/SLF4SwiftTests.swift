@@ -14,7 +14,7 @@ class SLF4SwiftTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+         SLF4Swift.setSharedFactory(SLFLoggerFactory.sharedInstance)
     }
     
     override func tearDown() {
@@ -42,17 +42,16 @@ class SLF4SwiftTests: XCTestCase {
         logger.verbose("verbose")
         logger.log(.Info,"log")
     }
-    
-    
+
     func testLoggerNil() {
         if let nilLogger: LoggerType = SLF4Swift.getLogger("nil") {
             XCTFail("logger must be nil")
         }
     }
-    
+
     func testLoggerCreate() {
-       let logger = SLF4Swift.createLogger("test")
-        XCTAssertTrue(logger.name == "test", "logger name not equals")
+        var logger = SLF4Swift.createLogger("test")
+        XCTAssertTrue(logger.name == "test", "logger name not equals to key") // only for SLFLogger
         
         if SLF4Swift.getLogger("test") == nil {
             XCTFail("failed to get logger")
@@ -62,6 +61,7 @@ class SLF4SwiftTests: XCTestCase {
         //let b: Bool = logger === getLogger
         //XCTAssertTrue(b, "created logger must same as retrieved one")
     
+        logger.level = SLFLogLevel.Info
         logger.info("info message")
         logger.error("error")
         logger.severe("severe")
@@ -69,6 +69,6 @@ class SLF4SwiftTests: XCTestCase {
         logger.debug("debug")
         logger.verbose("verbose")
         logger.log(.Info,"log")
-
     }
+    
 }

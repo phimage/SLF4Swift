@@ -45,15 +45,15 @@ public class NullLogger: SLFLogger {
         super.init(level: SLFLogLevel.Off, name: "null")
     }
 
-    override public func isLoggable<T>(level: LogLevelType) -> Bool {
+    override public func isLoggable<T>(level: SLFLogLevel) -> Bool {
         return false
     }
-    override public func doLog(message: LogMessageType) {
+    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
         // do nothing
     }
 }
 
-public class NullLoggerFactory: UniqueLoggerFactoryType {
+public class NullLoggerFactory: SingleLoggerFactory {
     public class var instance : NullLoggerFactory {
         struct Static {
             static var onceToken : dispatch_once_t = 0

@@ -10,7 +10,7 @@ import Foundation
 
 public typealias LoggerKeyType = String
 
-/* a factory for logger */
+/* A factory for logger */
 public protocol LoggerFactoryType {
     
     var defaultLogger: LoggerType {get}
@@ -24,8 +24,8 @@ public protocol LoggerFactoryType {
     
 }
 
-// only one logger into factory already created
-public class UniqueLoggerFactoryType: LoggerFactoryType {
+/* Factory with only one logger */
+public class SingleLoggerFactory: LoggerFactoryType {
     
     public var defaultLogger: LoggerType
     
@@ -51,12 +51,58 @@ public class UniqueLoggerFactoryType: LoggerFactoryType {
     }
 }
 
-// abstract factory, doCreateLogger must be overriden
-public class ByKeyLoggerFactory: LoggerFactoryType {
+
+/* A proxy pattern usefull to use an already implemented factory
+ * and return a different logger according to key
+ * ex: return a NullLogger.instance for specific framework key
+ */
+public class ProxyLoggerFactory: LoggerFactoryType {
     
-    public func doCreateLogger(name: LoggerKeyType) -> LoggerType {
-        assert(true, "must be overriden to create logger")
-        return NullLogger.instance // Must be overriden
+    var factory: LoggerFactoryType
+    
+    public lazy var defaultLogger: LoggerType = self.factory.defaultLogger
+    
+    public init(factory: LoggerFactoryType) {
+        self.factory = factory
+    }
+    
+    public var allLoggers: [LoggerType] {
+        return factory.allLoggers
+    }
+    
+    public func getLogger(name: LoggerKeyType) -> LoggerType? {
+        return factory.getLogger(name)
+    }
+    
+    public func createLogger(name: LoggerKeyType) -> LoggerType {
+        return factory.createLogger(name)
+    }
+    
+    public func removeLogger(name: LoggerKeyType) -> LoggerType? {
+        return factory.removeLogger(name)
+    }
+    
+    public func removeAllLoggers() {
+        self.factory.removeAllLoggers()
+    }
+}
+
+
+/* Factory for SLFLogger, with logger name as key
+ * doCreateLogger could be overriden to change logger type
+ */
+public class SLFLoggerFactory: LoggerFactoryType {
+    
+    public class var sharedInstance : SLFLoggerFactory {
+        struct Static {
+            static var onceToken : dispatch_once_t = 0
+            static var instance : SLFLoggerFactory?
+        }
+        
+        dispatch_once(&Static.onceToken) {
+            Static.instance = SLFLoggerFactory()
+        }
+        return Static.instance!
     }
 
     private var loggers = Dictionary<LoggerKeyType,LoggerType>()
@@ -70,6 +116,7 @@ public class ByKeyLoggerFactory: LoggerFactoryType {
     public func getLogger(name: LoggerKeyType) -> LoggerType? {
         return loggers[name]
     }
+
     public func createLogger(name: LoggerKeyType) -> LoggerType {
         if let logger = loggers[name] {
             return logger
@@ -78,31 +125,17 @@ public class ByKeyLoggerFactory: LoggerFactoryType {
         loggers[name] = newLogger
         return newLogger
     }
+
     public func removeLogger(name: LoggerKeyType) -> LoggerType? {
         return loggers.removeValueForKey(name)
     }
+
     public func removeAllLoggers() {
         self.loggers.removeAll(keepCapacity: false)
     }
-
-}
-
-/* Create SLFLogger */
-public class SLFLoggerFactory: ByKeyLoggerFactory {
-    public class var sharedInstance : SLFLoggerFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : SLFLoggerFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = SLFLoggerFactory()
-        }
-        return Static.instance!
-    }
     
-    public override func doCreateLogger(name: LoggerKeyType) -> LoggerType {
+    public func doCreateLogger(name: LoggerKeyType) -> LoggerType {
         return SLFLogger(level: SLFLogLevel.Info, name: name)
     }
-    
+
 }

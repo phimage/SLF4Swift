@@ -1,5 +1,5 @@
 //
-//  LastLogLogger.swift
+//  FileLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -24,19 +24,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 import Foundation
 
-/* Keep only last log */
-public class LastLogLogger: SLFLogger {
+public class FileLogger: SLFLogger {
     
-    public var value: LogMessageType?
+    var fileHandle: NSFileHandle!
 
-    public init(level: SLFLogLevel, initialValue: String = "", name: String = "lastlog") {
-        super.init(level: level, name: name)
+    public init?(level: SLFLogLevel, forWritingAtPath path: String, name: String? = nil) {
+        fileHandle = NSFileHandle(forWritingAtPath: path)
+        super.init(level: level, name: name ?? path)
+        if fileHandle == nil {
+            return nil
+        }
     }
     
-    override public func doLog(message: LogMessageType) {
-        value = message
+    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+        if let data = (message as NSString).dataUsingEncoding(NSUTF8StringEncoding) {
+            fileHandle.writeData(data)
+        }
+    }
+    
+    public func close() {
+        fileHandle.closeFile()
     }
 }
-

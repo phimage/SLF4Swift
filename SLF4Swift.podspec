@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SLF4Swift"
-  s.version      = "0.9.0"
+  s.version      = "0.9.1"
   s.summary      = "Simple Log Facade for Swift"
   s.description  = <<-DESC
                    Simple Log Facade for Swift serves as a simple facade
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/phimage/SLF4Swift"
 
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.license      = "MIT (example)"
+  s.license      = "MIT"
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.author             = { "phimage" => "eric.marchand.n7@gmail.com" }
@@ -32,8 +32,8 @@ Pod::Spec.new do |s|
     sp.source_files = "SLF4Swift/*.swift"
   end
 
-  s.subspec "CocoaLumberJack" do  |sp|
-    sp.source_files = ['SLF4Swift/Bridge/CocoaLumberJack.swift']
+  s.subspec "Impl" do  |sp|
+    sp.source_files = "SLF4Swift/Implementation/*.swift"
     sp.dependency 'SLF4Swift/Core'
   end
 

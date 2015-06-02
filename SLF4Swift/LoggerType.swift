@@ -33,7 +33,7 @@ public typealias LogMessageType = String
 public protocol LoggerType {
     
     var name: String {get}
-    var level: LogLevelType {get}
+    var level: SLFLogLevel {get set}
     
     func info(message: LogMessageType)
     func error(message: LogMessageType)
@@ -41,72 +41,72 @@ public protocol LoggerType {
     func warn(message: LogMessageType)
     func debug(message: LogMessageType)
     func verbose(message: LogMessageType)
-
-    func log(level: LogLevelType,_ message: LogMessageType)
-    func isLoggable(level: LogLevelType) -> Bool
-    
-    // enum
+    // with level
     func log(level: SLFLogLevel,_ message: LogMessageType)
     func isLoggable(level: SLFLogLevel) -> Bool
-    
+
 }
 
 /* Simple println logger. doLog function could be overriden to create more complex logger */
-public class SLFLogger : LoggerType {
+public class SLFLogger: LoggerType {
 
-    public var level: LogLevelType
+    public var level: SLFLogLevel
     public var name: LoggerKeyType
 
-    public var prefixClosure: (() -> String)?
-    
+    public var prefixClosure: ((SLFLogger,SLFLogLevel) -> String)?
+
     public init(level: SLFLogLevel, name: LoggerKeyType) {
         self.level = level
         self.name = name
     }
     
     public func info(message: LogMessageType) {
-        log(SLFLogLevel.Info, message)
+        log(.Info, message)
     }
     public func error(message: LogMessageType) {
-        log(SLFLogLevel.Error, message)
+        log(.Error, message)
+    }
+    public func error(🚫: NSError) {
+        error(🚫.localizedDescription)
     }
     public func severe(message: LogMessageType) {
-        log(SLFLogLevel.Severe, message)
+        log(.Severe, message)
+    }
+    public func severe(🚫: NSError) {
+        severe(🚫.description)
     }
     public func warn(message: LogMessageType) {
-        log(SLFLogLevel.Warn, message)
+        log(.Warn, message)
     }
     public func debug(message: LogMessageType) {
-        log(SLFLogLevel.Debug, message)
+        log(.Debug, message)
     }
     public func verbose(message: LogMessageType) {
-        log(SLFLogLevel.Verbose, message)
+        log(.Verbose, message)
     }
 
-    public func log(level: LogLevelType,_ message: LogMessageType) {
+    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+        assert(!level.isConfig(), "Config levels \(SLFLogLevel.config) cannot be used to log")
         if isLoggable(level) {
             if let closure = prefixClosure {
-                let prefix = closure()
-                doLog("\(prefix)\(message)")
+                let prefix = closure(self,level)
+                doLog(level, "\(prefix) \(message)")
             } else {
-                doLog("\(message)")
+                doLog(level, "\(message)")
             }
         }
     }
-    public func isLoggable(level: LogLevelType) -> Bool {
-        return self.level.level <= level.level
-    }
-    
-    
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
-        self.log(level, message)
-    }
     public func isLoggable(level: SLFLogLevel) -> Bool {
-        return (self.level as! SLFLogLevel) <= level
+        return level.level <= self.level.level
     }
     
-    public func doLog(message: LogMessageType) {
+    public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
         println(message)
     }
     
 }
+
+public let SLFDatePrefix: (SLFLogger,SLFLogLevel) -> String = { (logger,level) in
+    return NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+}
+    

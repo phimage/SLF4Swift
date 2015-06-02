@@ -1,5 +1,5 @@
 //
-//  StringAppendLogger.swift
+//  LastLogLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -24,25 +24,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 import Foundation
 
-/* Keep all log into a String. Useful to get framework log. Be careful of memorie issues */
-public class StringAppendLogger: SLFLogger {
+/* Keep only last log */
+public class LastLogLogger: SLFLogger {
+    
+    public var value: LogMessageType?
 
-    var value: NSMutableString
-    
-    public var stringValue: String{
-        return value as String
-    }
-    
-    public init(level: SLFLogLevel, initialValue: String = "", name: String = "append") {
-        self.value = NSMutableString(string: initialValue)
+    public init(level: SLFLogLevel, initialValue: String = "", name: String = "lastlog") {
         super.init(level: level, name: name)
     }
     
-    override public func doLog(message: LogMessageType) {
-       value.appendString(message)
+    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+        value = message
     }
 }
 

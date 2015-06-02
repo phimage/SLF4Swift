@@ -1,5 +1,5 @@
 //
-//  NSLogger.swift
+//  SystemLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -24,11 +24,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 import Foundation
 
-public class NSLogger: SLFLogger {
-    override public func doLog(message: LogMessageType) {
-        NSLog(message)
+public class SystemLogger: SLFLogger {
+    public static let LINE_DELIMITER = "\n"
+    
+    private static let stdout = NSFileHandle.fileHandleWithStandardOutput()
+    private static let stderr = NSFileHandle.fileHandleWithStandardError()
+    
+    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+        if level.isIssues() {
+            SystemLogger.errorln(message)
+        } else {
+            SystemLogger.println(message)
+        }
+    }
+    
+    public class func errorln(message: LogMessageType) {
+        writeTo(stderr, message + SystemLogger.LINE_DELIMITER)
+    }
+    public class func println(message: LogMessageType) {
+        writeTo(stdout, message + SystemLogger.LINE_DELIMITER)
+    }
+    
+    public class func writeTo(handle: NSFileHandle, _ string: String) {
+        if let data = string.dataUsingEncoding(NSUTF8StringEncoding) {
+            handle.writeData(data)
+        }
     }
 }

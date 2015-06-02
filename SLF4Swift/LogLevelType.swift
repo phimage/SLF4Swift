@@ -28,15 +28,19 @@ SOFTWARE.
 import Foundation
 
 /* level to filter message */
-public protocol LogLevelType {
+internal protocol LogLevelType {
     /* integer to compare log level */
     var level: Int {get}
     /* name of level, used to print level if necessarry */
     var name: String {get}
 }
 
-public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable {
+public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, Printable {
     case Off, Severe, Error, Warn, Info, Debug, Verbose, All
+    
+    public static var levels: [SLFLogLevel] {return [Off, Severe, Error, Warn, Info, Debug, Verbose, All]}
+    public static var config: [SLFLogLevel] {return [Off, All]}
+    public static var issues: [SLFLogLevel] {return [Severe, Error, Warn]}
     
     public var level: Int {
         return rawValue
@@ -45,17 +49,32 @@ public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable {
     public var name: String {
         switch(self) {
         case Off: return "Off"
-        case Severe: return "Severe"
+        case Severe: return "Severe" // Critical, Fatal
         case Error: return "Error"
         case Warn: return "Warn"
         case Info: return "Info"
         case Debug: return "Debug"
-        case Verbose: return "Verbose"
+        case Verbose: return "Verbose" // Trace
         case All: return "All"
         }
     }
+
+    public var description : String { return self.name }
+    public var shortDescription : String {
+        let d = self.description
+        return String(d[d.startIndex])
+    }
     
-    public static var levels: [SLFLogLevel] {return [Off, Severe, Error, Warn, Info, Debug, Verbose, All]}
+    public func isIssues() -> Bool {
+        return contains(SLFLogLevel.issues, self)
+    }
+    public func isConfig() -> Bool {
+        return contains(SLFLogLevel.config, self)
+    }
+    public func isFlag() -> Bool {
+        return !isConfig()
+    }
+    
 }
 public func ==(lhs: SLFLogLevel, rhs: SLFLogLevel) -> Bool {
     return lhs.rawValue == rhs.rawValue

@@ -11,7 +11,6 @@
 		C40808861B1A5E3D007FCA48 /* LoggerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808851B1A5E3D007FCA48 /* LoggerType.swift */; };
 		C40808881B1A5FA2007FCA48 /* LastLogLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808871B1A5FA2007FCA48 /* LastLogLogger.swift */; };
 		C408088A1B1A610E007FCA48 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40808891B1A610E007FCA48 /* FileLogger.swift */; };
-		C4498EC31B18C47500E6E770 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C4498EC21B18C47500E6E770 /* README.md */; };
 		C4A518F01B1738080017AD2B /* LogLevelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518EF1B1738080017AD2B /* LogLevelType.swift */; };
 		C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B3ED531B17191A00D807DA /* SLF4Swift.swift */; };
 		C4A518FB1B1750D50017AD2B /* StringAppendLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A518F51B1743090017AD2B /* StringAppendLogger.swift */; };
@@ -20,7 +19,7 @@
 		C4B3ED3D1B17190400D807DA /* SLF4Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B3ED3C1B17190400D807DA /* SLF4Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4B3ED431B17190500D807DA /* SLF4Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B3ED371B17190400D807DA /* SLF4Swift.framework */; };
 		C4B3ED4A1B17190500D807DA /* SLF4SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B3ED491B17190500D807DA /* SLF4SwiftTests.swift */; };
-		C4C4F5B41B17619C00877B61 /* Bridge in Resources */ = {isa = PBXBuildFile; fileRef = C4C4F5B31B17619C00877B61 /* Bridge */; };
+		C4C60D3B1B1DBBBD009EA78A /* SystemLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C60D3A1B1DBBBD009EA78A /* SystemLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +49,8 @@
 		C4B3ED481B17190500D807DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B3ED491B17190500D807DA /* SLF4SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLF4SwiftTests.swift; sourceTree = "<group>"; };
 		C4B3ED531B17191A00D807DA /* SLF4Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLF4Swift.swift; sourceTree = "<group>"; };
-		C4C4F5B31B17619C00877B61 /* Bridge */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bridge; sourceTree = "<group>"; };
+		C4C60D3A1B1DBBBD009EA78A /* SystemLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemLogger.swift; sourceTree = "<group>"; };
+		C4C60D3C1B1DBD16009EA78A /* SLF4Swift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SLF4Swift.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,22 +72,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C4A518EE1B17357A0017AD2B /* Impl */ = {
+		C4A518EE1B17357A0017AD2B /* Implementation */ = {
 			isa = PBXGroup;
 			children = (
-				C4A518F31B173E230017AD2B /* NullLogger.swift */,
 				C4A518F11B173DB00017AD2B /* NSLogger.swift */,
 				C4A518F51B1743090017AD2B /* StringAppendLogger.swift */,
 				C40808871B1A5FA2007FCA48 /* LastLogLogger.swift */,
 				C40808891B1A610E007FCA48 /* FileLogger.swift */,
+				C4C60D3A1B1DBBBD009EA78A /* SystemLogger.swift */,
 			);
-			name = Impl;
+			path = Implementation;
 			sourceTree = "<group>";
 		};
 		C4B3ED2D1B17190400D807DA = {
 			isa = PBXGroup;
 			children = (
 				C4498EC21B18C47500E6E770 /* README.md */,
+				C4C60D3C1B1DBD16009EA78A /* SLF4Swift.podspec */,
 				C4B3ED391B17190400D807DA /* SLF4Swift */,
 				C4B3ED461B17190500D807DA /* SLF4SwiftTests */,
 				C4B3ED381B17190400D807DA /* Products */,
@@ -110,8 +111,8 @@
 				C4A518EF1B1738080017AD2B /* LogLevelType.swift */,
 				C40808851B1A5E3D007FCA48 /* LoggerType.swift */,
 				C40808831B1A5A92007FCA48 /* LoggerFactoryType.swift */,
-				C4A518EE1B17357A0017AD2B /* Impl */,
-				C4C4F5B31B17619C00877B61 /* Bridge */,
+				C4A518F31B173E230017AD2B /* NullLogger.swift */,
+				C4A518EE1B17357A0017AD2B /* Implementation */,
 				C4B3ED3C1B17190400D807DA /* SLF4Swift.h */,
 				C4B3ED3A1B17190400D807DA /* Supporting Files */,
 			);
@@ -233,7 +234,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4C4F5B41B17619C00877B61 /* Bridge in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,9 +255,9 @@
 				C4A518F91B17483E0017AD2B /* SLF4Swift.swift in Sources */,
 				C4A518F01B1738080017AD2B /* LogLevelType.swift in Sources */,
 				C408088A1B1A610E007FCA48 /* FileLogger.swift in Sources */,
-				C4498EC31B18C47500E6E770 /* README.md in Sources */,
 				C40808881B1A5FA2007FCA48 /* LastLogLogger.swift in Sources */,
 				C4A518FC1B1750DE0017AD2B /* NullLogger.swift in Sources */,
+				C4C60D3B1B1DBBBD009EA78A /* SystemLogger.swift in Sources */,
 				C4A518FB1B1750D50017AD2B /* StringAppendLogger.swift in Sources */,
 				C40808861B1A5E3D007FCA48 /* LoggerType.swift in Sources */,
 				C40808841B1A5A92007FCA48 /* LoggerFactoryType.swift in Sources */,
