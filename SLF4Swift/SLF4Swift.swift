@@ -70,6 +70,11 @@ public class SLF4Swift {
     public class func createLogger(name: LoggerKeyType) -> LoggerType {
         return SLF4Swift.getSharedFactory().createLogger(name)
     }
+
+    // set null logger factory
+    public class func disable() {
+        self.setSharedFactory(NullLoggerFactory.instance)
+    }
 }
 
 public func SLFLogInfo(message: LogMessageType){
@@ -92,4 +97,23 @@ public func SLFLogVerbose(message: LogMessageType){
 }
 public func SLFLog(level: SLFLogLevel, message: LogMessageType){
     SLF4Swift.defaultLogger.log(level, message)
+}
+
+public extension SLFLogLevel {
+
+    public func message(message: String) {
+        SLF4Swift.defaultLogger.log(self, message)
+    }
+    
+    public func trace(file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UWord = __LINE__) {
+        message("\(file):\(function):\(line)")
+    }
+
+    public func value(value: Any?) {
+        if let v = value {
+            message(toDebugString(v))
+        } else {
+            message("(nil)")
+        }
+    }
 }

@@ -71,4 +71,17 @@ class SLF4SwiftTests: XCTestCase {
         logger.log(.Info,"log")
     }
     
+    func testLogLevelMessage() {
+        SLFLogLevel.Info.message("SLFLogInfo")
+        SLFLogLevel.Error.message("SLFLogError")
+        SLFLogLevel.Severe.message("SLFLogSevere")
+        SLFLogLevel.Warn.message("SLFLogWarn")
+        SLFLogLevel.Debug.message("SLFLogDebug")
+        SLFLogLevel.Verbose.message("SLFLogVerbose")
+        
+        SLFLogLevel.Info.trace()
+        SLFLogLevel.Info.value(SLF4Swift.getLogger("test"))
+        SLFLogLevel.Info.value(nil)
+    }
+    
 }

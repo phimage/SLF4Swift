@@ -52,6 +52,13 @@ SLFLogInfo("info message")
 SLFLog(.Verbose, "verbose message")
 ...
 ```
+By declaring `typealias Log = SLFLogLevel` you can also use default logger like this
+```
+Log.Info.message("info message")
+Log.Verbose.message("verbose message")
+Log.Verbose.trace()// print file, function and line
+
+```
 
 # For the end user
 ## Installing a logger factory
