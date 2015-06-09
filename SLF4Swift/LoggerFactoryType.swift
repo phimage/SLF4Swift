@@ -106,7 +106,36 @@ public class SLFLoggerFactory: LoggerFactoryType {
     }
 
     private var loggers = Dictionary<LoggerKeyType,LoggerType>()
+
+    // Default level when create a new logger
+    public var defaultLevel: SLFLogLevel = SLFLoggerFactory.getDefaultLevel() {
+        didSet {
+            if mustUpdateAllLoggersLevel {
+                updateAllLoggersLevel(defaultLevel)
+            }
+        }
+    }
     
+    // when modifying factory log level, update all logger levels
+    public var mustUpdateAllLoggersLevel = false
+    
+    public func updateAllLoggersLevel(level: SLFLogLevel) {
+        for logger in allLoggers {
+            if let slfLogger = logger as? SLFLogger {
+                slfLogger.level = defaultLevel
+            }
+        }
+    }
+    
+    private static func getDefaultLevel() -> SLFLogLevel {
+        #if DEBUG
+            return  SLFLogLevel.Verbose
+            #else
+            return SLFLogLevel.Info
+        #endif
+    }
+    
+    // root logger
     public lazy var defaultLogger: LoggerType = self.doCreateLogger("root")
     
     public var allLoggers: [LoggerType] {
@@ -135,7 +164,7 @@ public class SLFLoggerFactory: LoggerFactoryType {
     }
     
     public func doCreateLogger(name: LoggerKeyType) -> LoggerType {
-        return SLFLogger(level: SLFLogLevel.Info, name: name)
+        return SLFLogger(level: defaultLevel, name: name)
     }
 
 }
