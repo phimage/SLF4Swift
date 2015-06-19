@@ -121,6 +121,12 @@ Add `pod 'SLF4Swift'` to your `Podfile` and run `pod install`.
 
 Add `use_frameworks!` to the end of the `Podfile`.
 
+### Make your own framework dependent
+In podspec
+```ruby
+s.dependency 'SLF4Swift'
+```
+
 ### For additional logger ###
 Add `pod 'SLF4Swift/Impl'` to your `Podfile`
 
