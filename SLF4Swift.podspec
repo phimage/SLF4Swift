@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SLF4Swift"
-  s.version      = "0.9.1"
+  s.version      = "2.0.0"
   s.summary      = "Simple Log Facade for Swift"
   s.description  = <<-DESC
                    Simple Log Facade for Swift serves as a simple facade
@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.source       = { :git => "https://github.com/phimage/SLF4Swift.git", :tag => '0.9.1' }
+  s.source       = { :git => "https://github.com/phimage/SLF4Swift.git", :tag => '2.0.0' }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 

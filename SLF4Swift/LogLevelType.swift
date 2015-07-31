@@ -35,7 +35,7 @@ internal protocol LogLevelType {
     var name: String {get}
 }
 
-public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, Printable {
+public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, CustomStringConvertible {
     case Off, Severe, Error, Warn, Info, Debug, Verbose, All
     
     public static var levels: [SLFLogLevel] {return [Off, Severe, Error, Warn, Info, Debug, Verbose, All]}
@@ -66,10 +66,10 @@ public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, Printable {
     }
     
     public func isIssues() -> Bool {
-        return contains(SLFLogLevel.issues, self)
+        return SLFLogLevel.issues.contains(self)
     }
     public func isConfig() -> Bool {
-        return contains(SLFLogLevel.config, self)
+        return SLFLogLevel.config.contains(self)
     }
     public func isFlag() -> Bool {
         return !isConfig()

@@ -101,7 +101,7 @@ public class SLFLogger: LoggerType {
     }
     
     public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
-        println(message)
+        print(message)
     }
     
 }
