@@ -45,7 +45,7 @@ public class NullLogger: SLFLogger {
         super.init(level: SLFLogLevel.Off, name: "null")
     }
 
-    override public func isLoggable<T>(level: SLFLogLevel) -> Bool {
+    override public func isLoggable(level: SLFLogLevel) -> Bool {
         return false
     }
     override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {

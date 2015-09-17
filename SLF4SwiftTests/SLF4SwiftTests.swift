@@ -44,7 +44,7 @@ class SLF4SwiftTests: XCTestCase {
     }
 
     func testLoggerNil() {
-        if let nilLogger: LoggerType = SLF4Swift.getLogger("nil") {
+        if let _: LoggerType = SLF4Swift.getLogger("nil") {
             XCTFail("logger must be nil")
         }
     }
@@ -56,7 +56,7 @@ class SLF4SwiftTests: XCTestCase {
         if SLF4Swift.getLogger("test") == nil {
             XCTFail("failed to get logger")
         }
-        let getLogger = SLF4Swift.getLogger("test")!
+        _ = SLF4Swift.getLogger("test")!
         
         //let b: Bool = logger === getLogger
         //XCTAssertTrue(b, "created logger must same as retrieved one")

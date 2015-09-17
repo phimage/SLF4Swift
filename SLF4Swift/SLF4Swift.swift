@@ -95,7 +95,7 @@ public func SLFLogDebug(message: LogMessageType){
 public func SLFLogVerbose(message: LogMessageType){
     SLF4Swift.defaultLogger.verbose(message)
 }
-public func SLFLog(level: SLFLogLevel, message: LogMessageType){
+public func SLFLog(level: SLFLogLevel,_ message: LogMessageType){
     SLF4Swift.defaultLogger.log(level, message)
 }
 
@@ -105,13 +105,13 @@ public extension SLFLogLevel {
         SLF4Swift.defaultLogger.log(self, message)
     }
     
-    public func trace(file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UWord = __LINE__) {
+    public func trace(file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__) {
         message("\(file):\(function):\(line)")
     }
 
     public func value(value: Any?) {
         if let v = value {
-            message(toDebugString(v))
+            message(String(reflecting: v))
         } else {
             message("(nil)")
         }
