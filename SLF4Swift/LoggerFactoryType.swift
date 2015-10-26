@@ -107,6 +107,9 @@ public class SLFLoggerFactory: LoggerFactoryType {
 
     private var loggers = Dictionary<LoggerKeyType,LoggerType>()
 
+    public init(){
+    }
+
     // Default level when create a new logger
     public var defaultLevel: SLFLogLevel = SLFLoggerFactory.getDefaultLevel() {
         didSet {
@@ -151,8 +154,12 @@ public class SLFLoggerFactory: LoggerFactoryType {
             return logger
         }
         let newLogger = self.doCreateLogger(name)
-        loggers[name] = newLogger
+        addLogger(newLogger)
         return newLogger
+    }
+    
+    public func addLogger(logger: LoggerType) {
+        loggers[logger.name] = logger
     }
 
     public func removeLogger(name: LoggerKeyType) -> LoggerType? {

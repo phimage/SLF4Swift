@@ -45,6 +45,9 @@ myLogger.warn("my warn message")
 if myLogger.isLoggable(.Verbose) {
 	myLogger.log(.Verbose, createLongMessageClosure())
 }
+if myLogger.exec(.Verbose) { // or with closure
+	myLogger.log(.Verbose, createLongMessageClosure())
+}
 ```
 There is macro functions for default logger
 ```swift
@@ -107,7 +110,7 @@ Extend
 
 Some basic loggers are already implemented into [implementation folder](/SLF4Swift/Implementation)
 
-Some backend factories are already implemented into [backend folder](/SLF4Swift/Backend)
+Some backend factories are already implemented into [backend folder](/Backend) (see setup)
 ```swift
 SLF4Swift.setSharedFactory(CocoaLumberjackMacroLoggerFactory.instance)
 ```
@@ -121,13 +124,23 @@ Add `pod 'SLF4Swift'` to your `Podfile` and run `pod install`.
 
 Add `use_frameworks!` to the end of the `Podfile`.
 
+### Backend
+[CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack)
+`pod 'SLF4Swift/CocoaLumberjack'`
+
+[XCGLogger](https://github.com/DaveWoodCom/XCGLogger)
+`pod 'SLF4Swift/XCGLogger'`
+
+[SpeedLog](https://github.com/kostiakoval/SpeedLog)
+`pod 'SLF4Swift/SpeedLog'`
+
 ### Make your own framework dependent
 In podspec
 ```ruby
 s.dependency 'SLF4Swift'
 ```
 
-### For additional logger ###
+### For additional logger ie. simple implementation ###
 Add `pod 'SLF4Swift/Impl'` to your `Podfile`
 
 ## Using xcode project ##

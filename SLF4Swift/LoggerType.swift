@@ -47,6 +47,34 @@ public protocol LoggerType {
 
 }
 
+public extension LoggerType {
+    public func warning(message: LogMessageType) {
+        warn(message)
+    }
+    public func fatal(message: LogMessageType) {
+        severe(message)
+    }
+    public func error(🚫: NSError) {
+        error(🚫.localizedDescription)
+    }
+    public func severe(🚫: NSError) {
+        severe(🚫.localizedDescription)
+    }
+
+    // execute closure if loggable at specified level
+    public func exec(logLevel: SLFLogLevel = .Debug, closure: () -> () = {}) {
+        if (!isLoggable(logLevel)) {
+            return
+        }
+        closure()
+    }
+
+    // trace current line info
+    public func trace(level: SLFLogLevel, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__) {
+        log(level, "\(file):\(function):\(line)")
+    }
+}
+
 /* Simple println logger. doLog function could be overriden to create more complex logger */
 public class SLFLogger: LoggerType {
 
@@ -66,14 +94,9 @@ public class SLFLogger: LoggerType {
     public func error(message: LogMessageType) {
         log(.Error, message)
     }
-    public func error(🚫: NSError) {
-        error(🚫.localizedDescription)
-    }
+
     public func severe(message: LogMessageType) {
         log(.Severe, message)
-    }
-    public func severe(🚫: NSError) {
-        severe(🚫.description)
     }
     public func warn(message: LogMessageType) {
         log(.Warn, message)

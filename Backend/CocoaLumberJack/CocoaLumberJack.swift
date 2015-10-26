@@ -27,7 +27,6 @@ SOFTWARE.
 
 import Foundation
 import SLF4Swift
-
 import CocoaLumberjack
 
 /* Log with SwiftLogMacro from CocoaLumberjack */
@@ -55,8 +54,6 @@ public class CocoaLumberjackMacroLogger: LoggerType {
     }
     public var name: LoggerKeyType = "macro"
     public var isAsynchronous = true
-    
-    public var prefixClosure: (() -> String)?
 
     public func info(message: LogMessageType) {
         DDLogInfo(message, asynchronous: isAsynchronous)
@@ -78,7 +75,7 @@ public class CocoaLumberjackMacroLogger: LoggerType {
     }
 
     public func log(level: SLFLogLevel,_ message: LogMessageType) {
-        SwiftLogMacro(self.isAsynchronous, defaultDebugLevel, flag: DDLogFlag.fromLogLevel(CocoaLumberjackMacroLogger.fromLevel(level)), string: message)
+        SwiftLogMacro(self.isAsynchronous, level: defaultDebugLevel, flag: DDLogFlag.fromLogLevel(CocoaLumberjackMacroLogger.fromLevel(level)), string: message)
 
     }
 

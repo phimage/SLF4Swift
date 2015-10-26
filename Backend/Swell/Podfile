@@ -1,0 +1,7 @@
+
+use_frameworks!
+
+target 'Backend' do
+    pod 'SLF4Swift'
+    pod 'Swell', :git => 'https://github.com/ordovician/Swell.git'
+end

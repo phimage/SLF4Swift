@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C2DB2717D9E981F29BB3C0A4 /* Pods_Backend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 269EF1DEEDCABAE13F217DA7 /* Pods_Backend.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4C60D4D1B1DDACC009EA78A /* Backend.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C60D4C1B1DDACC009EA78A /* Backend.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C4C60D641B1DDB52009EA78A /* CocoaLumberJack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C60D631B1DDB52009EA78A /* CocoaLumberJack.swift */; };
+		C4C60D641B1DDB52009EA78A /* SpeedLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C60D631B1DDB52009EA78A /* SpeedLog.swift */; };
 		C4C60D661B1DDBA5009EA78A /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = C4C60D651B1DDBA5009EA78A /* Podfile */; };
 /* End PBXBuildFile section */
 
@@ -20,7 +20,7 @@
 		C4C60D471B1DDACC009EA78A /* Backend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Backend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C60D4B1B1DDACC009EA78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4C60D4C1B1DDACC009EA78A /* Backend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Backend.h; sourceTree = "<group>"; };
-		C4C60D631B1DDB52009EA78A /* CocoaLumberJack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CocoaLumberJack.swift; sourceTree = "<group>"; };
+		C4C60D631B1DDB52009EA78A /* SpeedLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeedLog.swift; sourceTree = "<group>"; };
 		C4C60D651B1DDBA5009EA78A /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
@@ -56,7 +56,7 @@
 		C4C60D3D1B1DDACC009EA78A = {
 			isa = PBXGroup;
 			children = (
-				C4C60D631B1DDB52009EA78A /* CocoaLumberJack.swift */,
+				C4C60D631B1DDB52009EA78A /* SpeedLog.swift */,
 				C4C60D491B1DDACC009EA78A /* Backend */,
 				C4C60D481B1DDACC009EA78A /* Products */,
 				C4C60D651B1DDBA5009EA78A /* Podfile */,
@@ -130,6 +130,7 @@
 		C4C60D3E1B1DDACC009EA78A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = phimage;
 				TargetAttributes = {
@@ -204,7 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4C60D641B1DDB52009EA78A /* CocoaLumberJack.swift in Sources */,
+				C4C60D641B1DDB52009EA78A /* SpeedLog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
