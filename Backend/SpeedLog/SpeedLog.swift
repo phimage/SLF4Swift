@@ -26,7 +26,9 @@ SOFTWARE.
 */
 
 import Foundation
-import SLF4Swift
+#if EXTERNAL
+    import SLF4Swift
+#endif
 import SpeedLog
 
 public class SpeedLogSLFLogger: LoggerType {
@@ -38,9 +40,13 @@ public class SpeedLogSLFLogger: LoggerType {
         }
         
         dispatch_once(&Static.onceToken) {
-            Static.instance = SpeedLogSLFLogger()
+            Static.instance = SpeedLogSLFLogger(level: SLFLogLevel.Debug)
         }
         return Static.instance!
+    }
+    
+    private init(level: SLFLogLevel) {
+        self.level = level
     }
 
     public var level: SLFLogLevel
@@ -72,7 +78,7 @@ public class SpeedLogSLFLoggerFactory: SingleLoggerFactory {
         return Static.instance!
     }
     
-    public init(logger: SpeedLogSLFLoggerFactory = SpeedLogSLFLoggerFactory.instance) {
+    public init(logger: SpeedLogSLFLogger = SpeedLogSLFLogger.instance) {
         super.init(logger: logger)
     }
 

@@ -26,7 +26,9 @@ SOFTWARE.
 */
 
 import Foundation
+#if EXTERNAL
 import SLF4Swift
+#endif
 import CocoaLumberjack
 
 /* Log with SwiftLogMacro from CocoaLumberjack */

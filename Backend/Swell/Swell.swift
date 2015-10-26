@@ -26,7 +26,9 @@ SOFTWARE.
 */
 
 import Foundation
-import SLF4Swift
+#if EXTERNAL
+    import SLF4Swift
+#endif
 import Swell
 
 public class SwellSLF: LoggerType {

@@ -56,18 +56,18 @@ Pod::Spec.new do |s|
     sp.ios.deployment_target = '8.0'
     sp.osx.deployment_target = '10.9'
     sp.watchos.deployment_target = '2.0'
-    sp.tvos.deployment_target = '9.0'
+    #sp.tvos.deployment_target = '9.0'
   end
 
-  s.subspec "SpeedLog" do  |sp|
-    sp.source_files = "Backend/SpeedLog/*.swift"
-    sp.dependency 'SLF4Swift/Core'
-    sp.dependency 'SpeedLog'
-    sp.ios.deployment_target = '8.0'
-    sp.osx.deployment_target = '10.9'
-    sp.watchos.deployment_target = '2.0'
-    sp.tvos.deployment_target = '9.0'
-  end
+  #s.subspec "SpeedLog" do  |sp|
+  #  sp.source_files = "Backend/SpeedLog/*.swift"
+  #  sp.dependency 'SLF4Swift/Core'
+  #  sp.dependency 'SpeedLog'
+  #  sp.ios.deployment_target = '8.0'
+  #  sp.osx.deployment_target = '10.9'
+  #  sp.watchos.deployment_target = '2.0'
+  #  sp.tvos.deployment_target = '9.0'
+  #end
 
   #s.subspec "QorumLogs" do  |sp|
   #  sp.source_files = "Backend/QorumLogs/*.swift"

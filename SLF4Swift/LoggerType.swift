@@ -27,26 +27,52 @@ SOFTWARE.
 
 import Foundation
 
-public typealias LogMessageType = String
+public typealias LogMessageType = String // Could change into closure one day
 
 /* a logger */
 public protocol LoggerType {
     
+    // property
     var name: String {get}
     var level: SLFLogLevel {get set}
     
+    // log
     func info(message: LogMessageType)
     func error(message: LogMessageType)
     func severe(message: LogMessageType)
     func warn(message: LogMessageType)
     func debug(message: LogMessageType)
     func verbose(message: LogMessageType)
+
     // with level
     func log(level: SLFLogLevel,_ message: LogMessageType)
     func isLoggable(level: SLFLogLevel) -> Bool
 
 }
 
+// Default implementation
+public extension LoggerType {
+    func info(message: LogMessageType) {
+        self.log(.Info, message)
+    }
+    func error(message: LogMessageType) {
+        self.log(.Error, message)
+    }
+    func severe(message: LogMessageType) {
+        self.log(.Severe, message)
+    }
+    func warn(message: LogMessageType) {
+        self.log(.Warn, message)
+    }
+    func debug(message: LogMessageType) {
+        self.log(.Debug, message)
+    }
+    func verbose(message: LogMessageType) {
+        self.log(.Verbose, message)
+    }
+}
+
+// Some additionnal methods
 public extension LoggerType {
     public func warning(message: LogMessageType) {
         warn(message)
@@ -70,6 +96,7 @@ public extension LoggerType {
     }
 
     // trace current line info
+    // TODO allow to pass this info to backend for all methods
     public func trace(level: SLFLogLevel, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__) {
         log(level, "\(file):\(function):\(line)")
     }
