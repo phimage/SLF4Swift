@@ -5,17 +5,19 @@
              )](https://developer.apple.com/swift) [![Issues](https://img.shields.io/github/issues/phimage/SLF4Swift.svg?style=flat
            )](https://github.com/phimage/Phiole/issues) [![Cocoapod](http://img.shields.io/cocoapods/v/SLF4Swift.svg?style=flat)](http://cocoadocs.org/docsets/SLF4Swift/)
 
-[<img align="left" src="logo-128x128.png" hspace="20">](#logo) Simple Log Facade for Swift serves as a simple facade for logging frameworks allowing the end user to plug in the desired logging framework at deployment time in your framework
+[<img align="left" src="logo-128x128.png" hspace="20">](#logo) Simple Log Facade for Swift serves as a simple facade for logging frameworks allowing the end user to plug in the desired logging framework
 
 ```swift
+# Setup a framework
+SLF4Swift.setSharedFactory(CocoaLumberjackMacroLoggerFactory.instance)
+# Log
 let myLogger = SLF4Swift.getLogger("loggerName")
 myLogger.info("my info message")
 myLogger.log(.Error, "my error message")
 ```
-
 A Simple Log Facade
-- make your framework project or any part of your codes no dependent to an heavy logging frameworks
-- allow to log into your framework, avoiding the use of `println()` or `NSLog()`, and let the end user capture this logs
+- make your project no dependent to a logging frameworks, thus allowing you to switch (or even combine!) frameworks at any time
+- provide logging functionality into your application, avoiding the use of `print()` or `NSLog()`
 
 # For framework owner
 ## Getting Logger
