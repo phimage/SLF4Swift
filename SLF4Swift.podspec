@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SLF4Swift"
-  s.version      = "2.0.1"
+  s.version      = "2.0.2"
   s.summary      = "Simple Log Facade for Swift"
   s.description  = <<-DESC
                    Simple Log Facade for Swift serves as a simple facade
@@ -94,6 +94,6 @@ Pod::Spec.new do |s|
   #end
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.resource  = "logo-128x128.png"
+  s.resource  = "logo.png"
 
 end
