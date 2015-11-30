@@ -1,5 +1,5 @@
 //
-//  XCGLogger.swift
+//  Loggerithm.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
@@ -29,38 +29,37 @@ import Foundation
 #if EXTERNAL
     import SLF4Swift
 #endif
-import XCGLogger
+import Loggerithm
 
-public class XCGLoggerSLF: LoggerType {
+public class LoggerithmSLF: LoggerType {
     
-    public class var instance : XCGLoggerSLF {
+    public class var instance : LoggerithmSLF {
         struct Static {
             static var onceToken : dispatch_once_t = 0
-            static var instance : XCGLoggerSLF?
+            static var instance : LoggerithmSLF?
         }
         
         dispatch_once(&Static.onceToken) {
-            Static.instance = XCGLoggerSLF(logger: XCGLogger.defaultInstance())
+            Static.instance = LoggerithmSLF(logger: Loggerithm.defaultLogger, name: "default")
         }
         return Static.instance!
     }
 
     public var level: SLFLogLevel {
         get {
-            return XCGLoggerSLF.toLevel(self.logger.outputLogLevel)
+            return LoggerithmSLF.toLevel(self.logger.logLevel)
         }
         set {
-            self.logger.outputLogLevel = XCGLoggerSLF.fromLevel(newValue)
+            self.logger.logLevel = LoggerithmSLF.fromLevel(newValue)
         }
     }
-    public var name: LoggerKeyType {
-        return self.logger.identifier
-    }
+    public var name: LoggerKeyType
 
-    public var logger: XCGLogger
+    public var logger: Loggerithm
     
-    public init(logger: XCGLogger) {
+    public init(logger: Loggerithm, name: LoggerKeyType) {
         self.logger = logger
+        self.name = name
     }
 
     public func info(message: LogMessageType) {
@@ -70,7 +69,7 @@ public class XCGLoggerSLF: LoggerType {
         self.logger.error(message)
     }
     public func severe(message: LogMessageType) {
-        self.logger.severe(message)
+        self.logger.error(message)
     }
     public func warn(message: LogMessageType) {
         self.logger.warning(message)
@@ -83,53 +82,53 @@ public class XCGLoggerSLF: LoggerType {
     }
 
     public func log(level: SLFLogLevel,_ message: LogMessageType) {
-        self.logger.logln(XCGLoggerSLF.fromLevel(level), closure: {message})
+        self.logger.logWithLevel(LoggerithmSLF.fromLevel(level), message)
     }
 
     public func isLoggable(level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
 
-    public static func toLevel(level:XCGLogger.LogLevel) -> SLFLogLevel {
+    public static func toLevel(level: LogLevel) -> SLFLogLevel {
         switch(level){
-        case .None: return SLFLogLevel.Off
-        case .Severe: return SLFLogLevel.Severe
+        case .Off: return SLFLogLevel.Off
         case .Error: return SLFLogLevel.Error
         case .Warning: return SLFLogLevel.Warn
         case .Info: return SLFLogLevel.Info
         case .Debug: return SLFLogLevel.Debug
         case .Verbose: return SLFLogLevel.Verbose
+        case .All: return SLFLogLevel.All
         }
     }
  
     
-    public static func fromLevel(level:SLFLogLevel) -> XCGLogger.LogLevel {
+    public static func fromLevel(level:SLFLogLevel) -> LogLevel {
         switch(level){
-        case .Off: return XCGLogger.LogLevel.None
-        case .Severe: return XCGLogger.LogLevel.Severe
-        case .Error: return XCGLogger.LogLevel.Error
-        case .Warn: return XCGLogger.LogLevel.Warning
-        case .Info: return XCGLogger.LogLevel.Info
-        case .Debug: return XCGLogger.LogLevel.Debug
-        case .Verbose: return XCGLogger.LogLevel.Verbose
-        case .All: return XCGLogger.LogLevel.Verbose
+        case .Off: return LogLevel.Off
+        case .Severe: return LogLevel.Error
+        case .Error: return LogLevel.Error
+        case .Warn: return LogLevel.Warning
+        case .Info: return LogLevel.Info
+        case .Debug: return LogLevel.Debug
+        case .Verbose: return LogLevel.Verbose
+        case .All: return LogLevel.All
         }
     }
     
 }
 
-public class XCGLoggerSLFFactory: SLFLoggerFactory {
+public class LoggerithmSLFFactory: SLFLoggerFactory {
     
-    public class var instance : XCGLoggerSLFFactory {
+    public class var instance : LoggerithmSLFFactory {
         struct Static {
             static var onceToken : dispatch_once_t = 0
-            static var instance : XCGLoggerSLFFactory?
+            static var instance : LoggerithmSLFFactory?
         }
         
         dispatch_once(&Static.onceToken) {
-            let factory = XCGLoggerSLFFactory()
+            let factory = LoggerithmSLFFactory()
             Static.instance = factory
-            factory.addLogger(XCGLoggerSLF.instance)
+            factory.addLogger(LoggerithmSLF.instance)
         }
         return Static.instance!
     }
@@ -139,8 +138,7 @@ public class XCGLoggerSLFFactory: SLFLoggerFactory {
     }
     
     public override func doCreateLogger(name: LoggerKeyType) -> LoggerType {
-        let logger = XCGLogger()
-        logger.identifier = name
-        return  XCGLoggerSLF(logger: logger)
+        let logger = Loggerithm()
+        return  LoggerithmSLF(logger: logger, name: name)
     }
 }
