@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 phimage. All rights reserved.
 //
 
-import UIKit
 import XCTest
 import SLF4Swift
 
