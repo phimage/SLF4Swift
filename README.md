@@ -5,7 +5,7 @@
             )](http://mit-license.org) [![Platform](http://img.shields.io/badge/platform-ios_osx-lightgrey.svg?style=flat
              )](https://developer.apple.com/resources/) [![Language](http://img.shields.io/badge/language-swift-orange.svg?style=flat
              )](https://developer.apple.com/swift) [![Issues](https://img.shields.io/github/issues/phimage/SLF4Swift.svg?style=flat
-           )](https://github.com/phimage/Phiole/issues) [![Cocoapod](http://img.shields.io/cocoapods/v/SLF4Swift.svg?style=flat)](http://cocoadocs.org/docsets/SLF4Swift/)
+           )](https://github.com/phimage/Phiole/issues) [![Cocoapod](http://img.shields.io/cocoapods/v/SLF4Swift.svg?style=flat)](http://cocoadocs.org/docsets/SLF4Swift/) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 [<img align="left" src="logo.png" hspace="20">](#logo) Simple Log Facade for Swift serves as a simple facade for logging frameworks allowing the end user to plug in the desired logging framework at deployment time
 

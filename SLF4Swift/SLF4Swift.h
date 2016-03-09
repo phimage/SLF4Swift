@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 phimage. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for SLF4Swift.
 FOUNDATION_EXPORT double SLF4SwiftVersionNumber;
