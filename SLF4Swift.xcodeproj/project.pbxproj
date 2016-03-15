@@ -71,7 +71,7 @@
 		C4B3ED531B17191A00D807DA /* SLF4Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLF4Swift.swift; sourceTree = "<group>"; };
 		C4C60D3A1B1DBBBD009EA78A /* SystemLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemLogger.swift; sourceTree = "<group>"; };
 		C4C60D3C1B1DBD16009EA78A /* SLF4Swift.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = SLF4Swift.podspec; sourceTree = "<group>"; };
-		D0B070601C8FBF0E006F02E8 /* SLF4SwiftOSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SLF4SwiftOSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0B070601C8FBF0E006F02E8 /* SLF4Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SLF4Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B0708E1C8FC0E4006F02E8 /* SLF4SwiftTests OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SLF4SwiftTests OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,7 +137,7 @@
 			children = (
 				C4B3ED371B17190400D807DA /* SLF4Swift.framework */,
 				C4B3ED421B17190500D807DA /* SLF4SwiftTests.xctest */,
-				D0B070601C8FBF0E006F02E8 /* SLF4SwiftOSX.framework */,
+				D0B070601C8FBF0E006F02E8 /* SLF4Swift.framework */,
 				D0B0708E1C8FC0E4006F02E8 /* SLF4SwiftTests OSX.xctest */,
 			);
 			name = Products;
@@ -256,7 +256,7 @@
 			);
 			name = SLF4SwiftOSX;
 			productName = SLF4SwiftOSX;
-			productReference = D0B070601C8FBF0E006F02E8 /* SLF4SwiftOSX.framework */;
+			productReference = D0B070601C8FBF0E006F02E8 /* SLF4Swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		D0B070831C8FC0E4006F02E8 /* SLF4SwiftTests OSX */ = {
@@ -590,7 +590,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.phimage.SLF4Swift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SLF4Swift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -611,7 +611,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = tv.phimage.SLF4Swift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SLF4Swift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -688,6 +688,7 @@
 				D0B070671C8FBF0E006F02E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0B0708B1C8FC0E4006F02E8 /* Build configuration list for PBXNativeTarget "SLF4SwiftTests OSX" */ = {
 			isa = XCConfigurationList;
