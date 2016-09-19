@@ -4,7 +4,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,58 +37,58 @@ public protocol LoggerType {
     var level: SLFLogLevel {get set}
     
     // log
-    func info(message: LogMessageType)
-    func error(message: LogMessageType)
-    func severe(message: LogMessageType)
-    func warn(message: LogMessageType)
-    func debug(message: LogMessageType)
-    func verbose(message: LogMessageType)
+    func info(_ message: LogMessageType)
+    func error(_ message: LogMessageType)
+    func severe(_ message: LogMessageType)
+    func warn(_ message: LogMessageType)
+    func debug(_ message: LogMessageType)
+    func verbose(_ message: LogMessageType)
 
     // with level
-    func log(level: SLFLogLevel,_ message: LogMessageType)
-    func isLoggable(level: SLFLogLevel) -> Bool
+    func log(_ level: SLFLogLevel,_ message: LogMessageType)
+    func isLoggable(_ level: SLFLogLevel) -> Bool
 
 }
 
 // Default implementation
 public extension LoggerType {
-    func info(message: LogMessageType) {
-        self.log(.Info, message)
+    func info(_ message: LogMessageType) {
+        self.log(.info, message)
     }
-    func error(message: LogMessageType) {
-        self.log(.Error, message)
+    func error(_ message: LogMessageType) {
+        self.log(.error, message)
     }
-    func severe(message: LogMessageType) {
-        self.log(.Severe, message)
+    func severe(_ message: LogMessageType) {
+        self.log(.severe, message)
     }
-    func warn(message: LogMessageType) {
-        self.log(.Warn, message)
+    func warn(_ message: LogMessageType) {
+        self.log(.warn, message)
     }
-    func debug(message: LogMessageType) {
-        self.log(.Debug, message)
+    func debug(_ message: LogMessageType) {
+        self.log(.debug, message)
     }
-    func verbose(message: LogMessageType) {
-        self.log(.Verbose, message)
+    func verbose(_ message: LogMessageType) {
+        self.log(.verbose, message)
     }
 }
 
 // Some additionnal methods
 public extension LoggerType {
-    public func warning(message: LogMessageType) {
+    public func warning(_ message: LogMessageType) {
         warn(message)
     }
-    public func fatal(message: LogMessageType) {
+    public func fatal(_ message: LogMessageType) {
         severe(message)
     }
-    public func error(🚫: NSError) {
+    public func error(_ 🚫: NSError) {
         error(🚫.localizedDescription)
     }
-    public func severe(🚫: NSError) {
+    public func severe(_ 🚫: NSError) {
         severe(🚫.localizedDescription)
     }
 
     // execute closure if loggable at specified level
-    public func exec(logLevel: SLFLogLevel = .Debug, closure: () -> () = {}) {
+    public func exec(_ logLevel: SLFLogLevel = .debug, closure: () -> () = {}) {
         if (!isLoggable(logLevel)) {
             return
         }
@@ -97,45 +97,45 @@ public extension LoggerType {
 
     // trace current line info
     // TODO allow to pass this info to backend for all methods
-    public func trace(level: SLFLogLevel, file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__) {
+    public func trace(_ level: SLFLogLevel, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
         log(level, "\(file):\(function):\(line)")
     }
 }
 
 /* Simple println logger. doLog function could be overriden to create more complex logger */
-public class SLFLogger: LoggerType {
+open class SLFLogger: LoggerType {
 
-    public var level: SLFLogLevel
-    public var name: LoggerKeyType
+    open var level: SLFLogLevel
+    open var name: LoggerKeyType
 
-    public var prefixClosure: ((SLFLogger,SLFLogLevel) -> String)?
+    open var prefixClosure: ((SLFLogger,SLFLogLevel) -> String)?
 
     public init(level: SLFLogLevel, name: LoggerKeyType) {
         self.level = level
         self.name = name
     }
     
-    public func info(message: LogMessageType) {
-        log(.Info, message)
+    open func info(_ message: LogMessageType) {
+        log(.info, message)
     }
-    public func error(message: LogMessageType) {
-        log(.Error, message)
-    }
-
-    public func severe(message: LogMessageType) {
-        log(.Severe, message)
-    }
-    public func warn(message: LogMessageType) {
-        log(.Warn, message)
-    }
-    public func debug(message: LogMessageType) {
-        log(.Debug, message)
-    }
-    public func verbose(message: LogMessageType) {
-        log(.Verbose, message)
+    open func error(_ message: LogMessageType) {
+        log(.error, message)
     }
 
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func severe(_ message: LogMessageType) {
+        log(.severe, message)
+    }
+    open func warn(_ message: LogMessageType) {
+        log(.warn, message)
+    }
+    open func debug(_ message: LogMessageType) {
+        log(.debug, message)
+    }
+    open func verbose(_ message: LogMessageType) {
+        log(.verbose, message)
+    }
+
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         assert(!level.isConfig(), "Config levels \(SLFLogLevel.config) cannot be used to log")
         if isLoggable(level) {
             if let closure = prefixClosure {
@@ -146,17 +146,17 @@ public class SLFLogger: LoggerType {
             }
         }
     }
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level.level <= self.level.level
     }
     
-    public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+    open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
         print(message)
     }
     
 }
 
 public let SLFDatePrefix: (SLFLogger,SLFLogLevel) -> String = { (logger,level) in
-    return NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+    return DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
 }
     

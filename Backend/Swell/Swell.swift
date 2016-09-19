@@ -31,21 +31,11 @@ import Foundation
 #endif
 import Swell
 
-public class SwellSLF: LoggerType {
+open class SwellSLF: LoggerType {
     
-    public class var instance : SwellSLF {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : SwellSLF?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = SwellSLF(logger: Swell.getLogger("Shared"))
-        }
-        return Static.instance!
-    }
+    open class var instance = SwellSLF(logger: Swell.getLogger("Shared"))
 
-    public var level: SLFLogLevel {
+    open var level: SLFLogLevel {
         get {
             return SwellSLF.toLevel(self.logger.level)
         }
@@ -53,44 +43,44 @@ public class SwellSLF: LoggerType {
             self.logger.level = SwellSLF.fromLevel(newValue)
         }
     }
-    public var name: LoggerKeyType {
+    open var name: LoggerKeyType {
         return self.logger.name
     }
 
-    public var logger: Logger
+    open var logger: Logger
     
     public init(logger: Logger) {
         self.logger = logger
     }
 
-    public func info(message: LogMessageType) {
+    open func info(_ message: LogMessageType) {
         self.logger.info(message)
     }
-    public func error(message: LogMessageType) {
+    open func error(_ message: LogMessageType) {
         self.logger.error(message)
     }
-    public func severe(message: LogMessageType) {
+    open func severe(_ message: LogMessageType) {
         self.logger.severe(message)
     }
-    public func warn(message: LogMessageType) {
+    open func warn(_ message: LogMessageType) {
         self.logger.warn(message)
     }
-    public func debug(message: LogMessageType) {
+    open func debug(_ message: LogMessageType) {
         self.logger.debug(message)
     }
-    public func verbose(message: LogMessageType) {
+    open func verbose(_ message: LogMessageType) {
         self.logger.trace(message)
     }
 
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         self.logger.log(SwellSLF.fromLevel(level), message: message)
     }
 
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
 
-    public static func toLevel(level:LogLevel) -> SLFLogLevel {
+    open static func toLevel(_ level:LogLevel) -> SLFLogLevel {
         let predef = PredefinedLevel(rawValue: level.level)!
         switch(predef){
         case .severe: return SLFLogLevel.Severe
@@ -103,7 +93,7 @@ public class SwellSLF: LoggerType {
     }
  
     
-    public static func fromLevel(level:SLFLogLevel) -> LogLevel {
+    open static func fromLevel(_ level:SLFLogLevel) -> LogLevel {
         switch(level){
         case .Off: return LogLevel.getLevel(PredefinedLevel.severe) // XXX not working
         case .Severe: return LogLevel.getLevel(PredefinedLevel.severe)
@@ -118,26 +108,15 @@ public class SwellSLF: LoggerType {
     
 }
 
-public class SwellSLFFactory: SLFLoggerFactory {
-    
-    public class var instance : SwellSLFFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : SwellSLFFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            let factory = SwellSLFFactory()
-            Static.instance = factory
-        }
-        return Static.instance!
-    }
+open class SwellSLFFactory: SLFLoggerFactory {
+
+    open class var instance = SwellSLFFactory()
 
     public override init(){
         super.init()
     }
 
-    public override func doCreateLogger(name: LoggerKeyType) -> LoggerType {
+    open override func doCreateLogger(_ name: LoggerKeyType) -> LoggerType {
         let logger = Swell.getLogger(name)
         return  SwellSLF(logger: logger)
     }

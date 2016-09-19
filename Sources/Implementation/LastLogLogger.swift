@@ -1,10 +1,10 @@
 //
-//  SystemLogger.swift
+//  LastLogLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,30 +26,17 @@ SOFTWARE.
 */
 import Foundation
 
-public class SystemLogger: SLFLogger {
-    public static let LINE_DELIMITER = "\n"
+/* Keep only last log */
+open class LastLogLogger: SLFLogger {
     
-    private static let stdout = NSFileHandle.fileHandleWithStandardOutput()
-    private static let stderr = NSFileHandle.fileHandleWithStandardError()
-    
-    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
-        if level.isIssues() {
-            SystemLogger.errorln(message)
-        } else {
-            SystemLogger.println(message)
-        }
+    open var value: LogMessageType?
+
+    public init(level: SLFLogLevel, initialValue: String = "", name: String = "lastlog") {
+        super.init(level: level, name: name)
     }
     
-    public class func errorln(message: LogMessageType) {
-        writeTo(stderr, message + SystemLogger.LINE_DELIMITER)
-    }
-    public class func println(message: LogMessageType) {
-        writeTo(stdout, message + SystemLogger.LINE_DELIMITER)
-    }
-    
-    public class func writeTo(handle: NSFileHandle, _ string: String) {
-        if let data = string.dataUsingEncoding(NSUTF8StringEncoding) {
-            handle.writeData(data)
-        }
+    override open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
+        value = message
     }
 }
+

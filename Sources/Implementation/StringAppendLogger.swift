@@ -4,7 +4,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,11 +28,11 @@ SOFTWARE.
 import Foundation
 
 /* Keep all log into a String. Useful to get framework log. Be careful of memory issues */
-public class StringAppendLogger: SLFLogger {
+open class StringAppendLogger: SLFLogger {
 
     var value: NSMutableString
     
-    public var stringValue: String{
+    open var stringValue: String{
         return value as String
     }
     
@@ -41,8 +41,8 @@ public class StringAppendLogger: SLFLogger {
         super.init(level: level, name: name)
     }
     
-    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
-       value.appendString(message)
+    override open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
+       value.append(message)
     }
 }
 

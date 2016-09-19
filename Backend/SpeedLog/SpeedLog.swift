@@ -31,58 +31,38 @@ import Foundation
 #endif
 import SpeedLog
 
-public class SpeedLogSLFLogger: LoggerType {
+open class SpeedLogSLFLogger: LoggerType {
     
-    public class var instance : SpeedLogSLFLogger {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : SpeedLogSLFLogger?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = SpeedLogSLFLogger(level: SLFLogLevel.Debug)
-        }
-        return Static.instance!
-    }
+    open class var instance  = SpeedLogSLFLogger(level: SLFLogLevel.Debug)
     
-    private init(level: SLFLogLevel) {
+    fileprivate init(level: SLFLogLevel) {
         self.level = level
     }
 
-    public var level: SLFLogLevel
-    public var name: LoggerKeyType = "instance"
+    open var level: SLFLogLevel
+    open var name: LoggerKeyType = "instance"
     
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         if isLoggable(level) {
             SpeedLog.println(message)
         }
     }
 
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
     
 }
 
-public class SpeedLogSLFLoggerFactory: SingleLoggerFactory {
-    
-    public class var instance : SpeedLogSLFLoggerFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : SpeedLogSLFLoggerFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = SpeedLogSLFLoggerFactory()
-        }
-        return Static.instance!
-    }
-    
+open class SpeedLogSLFLoggerFactory: SingleLoggerFactory {
+
+    open class var instance = SpeedLogSLFLoggerFactory()
+
     public init(logger: SpeedLogSLFLogger = SpeedLogSLFLogger.instance) {
         super.init(logger: logger)
     }
 
-    public override func removeAllLoggers() {
+    open override func removeAllLoggers() {
         
     }
 }

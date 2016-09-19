@@ -32,21 +32,11 @@ import SLF4Swift
 import CocoaLumberjack
 
 /* Log with SwiftLogMacro from CocoaLumberjack */
-public class CocoaLumberjackMacroLogger: LoggerType {
-    
-    public class var instance : CocoaLumberjackMacroLogger {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : CocoaLumberjackMacroLogger?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = CocoaLumberjackMacroLogger()
-        }
-        return Static.instance!
-    }
+open class CocoaLumberjackMacroLogger: LoggerType {
 
-    public var level: SLFLogLevel {
+    open class var instance  = CocoaLumberjackMacroLogger()
+
+    open var level: SLFLogLevel {
         get {
             return CocoaLumberjackMacroLogger.toLevel(defaultDebugLevel)
         }
@@ -54,38 +44,38 @@ public class CocoaLumberjackMacroLogger: LoggerType {
             defaultDebugLevel = CocoaLumberjackMacroLogger.fromLevel(newValue)
         }
     }
-    public var name: LoggerKeyType = "macro"
-    public var isAsynchronous = true
+    open var name: LoggerKeyType = "macro"
+    open var isAsynchronous = true
 
-    public func info(message: LogMessageType) {
+    open func info(_ message: LogMessageType) {
         DDLogInfo(message, asynchronous: isAsynchronous)
     }
-    public func error(message: LogMessageType) {
+    open func error(_ message: LogMessageType) {
         DDLogError(message, asynchronous: isAsynchronous)
     }
-    public func severe(message: LogMessageType) {
+    open func severe(_ message: LogMessageType) {
         error(message) // no fatal or severe level
     }
-    public func warn(message: LogMessageType) {
+    open func warn(_ message: LogMessageType) {
         DDLogWarn(message, asynchronous: isAsynchronous)
     }
-    public func debug(message: LogMessageType) {
+    open func debug(_ message: LogMessageType) {
          DDLogDebug(message, asynchronous: isAsynchronous)
     }
-    public func verbose(message: LogMessageType) {
+    open func verbose(_ message: LogMessageType) {
          DDLogVerbose(message, asynchronous: isAsynchronous)
     }
 
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         SwiftLogMacro(self.isAsynchronous, level: defaultDebugLevel, flag: DDLogFlag.fromLogLevel(CocoaLumberjackMacroLogger.fromLevel(level)), string: message)
 
     }
 
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
 
-    public static func toLevel(level:DDLogLevel) -> SLFLogLevel {
+    open static func toLevel(_ level:DDLogLevel) -> SLFLogLevel {
         switch(level){
             case .Off: return SLFLogLevel.Off
             case .Error: return SLFLogLevel.Error
@@ -97,7 +87,7 @@ public class CocoaLumberjackMacroLogger: LoggerType {
         }
     }
     
-    public static func fromLevel(level:SLFLogLevel) -> DDLogLevel {
+    open static func fromLevel(_ level:SLFLogLevel) -> DDLogLevel {
         switch(level){
         case .Off: return DDLogLevel.Off
         case .Severe: return DDLogLevel.Error
@@ -112,25 +102,15 @@ public class CocoaLumberjackMacroLogger: LoggerType {
     
 }
 
-public class CocoaLumberjackMacroLoggerFactory: SingleLoggerFactory {
-    
-    public class var instance : CocoaLumberjackMacroLoggerFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : CocoaLumberjackMacroLoggerFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = CocoaLumberjackMacroLoggerFactory()
-        }
-        return Static.instance!
-    }
+open class CocoaLumberjackMacroLoggerFactory: SingleLoggerFactory {
+
+    open class var instance  = CocoaLumberjackMacroLoggerFactory()
     
     public init(logger: CocoaLumberjackMacroLogger = CocoaLumberjackMacroLogger.instance) {
         super.init(logger: logger)
     }
 
-    public override func removeAllLoggers() {
+    open override func removeAllLoggers() {
         // DDLog.removeAllLoggers()
     }
 }

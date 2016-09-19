@@ -1,10 +1,10 @@
 //
-//  NSLogger.swift
+//  FileLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,25 @@ SOFTWARE.
 
 import Foundation
 
-public class NSLogger: SLFLogger {
-    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
-        NSLog(message)
+open class FileLogger: SLFLogger {
+    
+    var fileHandle: FileHandle!
+
+    public init?(level: SLFLogLevel, forWritingAtPath path: String, name: String? = nil) {
+        fileHandle = FileHandle(forWritingAtPath: path)
+        super.init(level: level, name: name ?? path)
+        if fileHandle == nil {
+            return nil
+        }
+    }
+    
+    override open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
+        if let data = (message as NSString).data(using: String.Encoding.utf8.rawValue) {
+            fileHandle.write(data)
+        }
+    }
+    
+    open func close() {
+        fileHandle.closeFile()
     }
 }

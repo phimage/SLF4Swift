@@ -4,7 +4,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,14 @@ import Foundation
  * Register a shared LoggerFactoryType to install a logger system
  * Get loggers, default one or by key
  */
-public class SLF4Swift {
+open class SLF4Swift {
 
-    static var initializeToken : dispatch_once_t = 0
-    public class func initialize() {
+    private static var __once: () = {
+               SLF4Swift.initialize()
+            }()
+
+    static var initializeToken : Int = 0
+    open class func initialize() {
         if _sharedFactory == nil {
             // set default factory according to preprocessor macros
             #if DEBUG
@@ -45,71 +49,69 @@ public class SLF4Swift {
         }
     }
 
-    private static var _sharedFactory: LoggerFactoryType? = nil
+    fileprivate static var _sharedFactory: LoggerFactoryType? = nil
 
     // Set a custom logger factory
-    public class func setSharedFactory(factory: LoggerFactoryType) {
+    open class func setSharedFactory(_ factory: LoggerFactoryType) {
         _sharedFactory = factory
     }
     
-    public class func getSharedFactory() -> LoggerFactoryType {
+    open class func getSharedFactory() -> LoggerFactoryType {
         if _sharedFactory == nil {
-            dispatch_once(&SLF4Swift.initializeToken) {
-               SLF4Swift.initialize()
-            }
+            _ = SLF4Swift.__once
         }
        return _sharedFactory!
     }
 
-    public class var defaultLogger: LoggerType {
+    open class var defaultLogger: LoggerType {
         return SLF4Swift.getSharedFactory().defaultLogger
     }
-    public class func getLogger(name: LoggerKeyType) -> LoggerType? {
+    open class func getLogger(_ name: LoggerKeyType) -> LoggerType? {
         return SLF4Swift.getSharedFactory().getLogger(name)
     }
-    public class func createLogger(name: LoggerKeyType) -> LoggerType {
+    open class func createLogger(_ name: LoggerKeyType) -> LoggerType {
         return SLF4Swift.getSharedFactory().createLogger(name)
     }
 
     // set null logger factory
-    public class func disable() {
+    open class func disable() {
         self.setSharedFactory(NullLoggerFactory.instance)
     }
 }
 
-public func SLFLogInfo(message: LogMessageType){
+public func SLFLogInfo(_ message: LogMessageType){
     SLF4Swift.defaultLogger.info(message)
 }
-public func SLFLogError(message: LogMessageType){
+public func SLFLogError(_ message: LogMessageType){
     SLF4Swift.defaultLogger.error(message)
 }
-public func SLFLogSevere(message: LogMessageType){
+public func SLFLogSevere(_ message: LogMessageType){
     SLF4Swift.defaultLogger.severe(message)
 }
-public func SLFLogWarn(message: LogMessageType){
+public func SLFLogWarn(_ message: LogMessageType){
     SLF4Swift.defaultLogger.warn(message)
 }
-public func SLFLogDebug(message: LogMessageType){
+public func SLFLogDebug(_ message: LogMessageType){
     SLF4Swift.defaultLogger.debug(message)
 }
-public func SLFLogVerbose(message: LogMessageType){
+public func SLFLogVerbose(_ message: LogMessageType){
     SLF4Swift.defaultLogger.verbose(message)
 }
-public func SLFLog(level: SLFLogLevel,_ message: LogMessageType){
+public func SLFLog(_ level: SLFLogLevel,_ message: LogMessageType){
     SLF4Swift.defaultLogger.log(level, message)
 }
 
 public extension SLFLogLevel {
 
-    public func message(message: String) {
+    public func message(_ message: String) {
         SLF4Swift.defaultLogger.log(self, message)
     }
     
-    public func trace(file: StaticString = __FILE__, function: StaticString = __FUNCTION__, line: UInt = __LINE__) {
+    public func trace(_ file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
         message("\(file):\(function):\(line)")
     }
 
-    public func value(value: Any?) {
+    public func value(_ value: Any?) {
         if let v = value {
             message(String(reflecting: v))
         } else {

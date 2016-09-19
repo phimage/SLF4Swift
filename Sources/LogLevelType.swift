@@ -4,7 +4,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,11 +36,11 @@ internal protocol LogLevelType {
 }
 
 public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, CustomStringConvertible {
-    case Off, Severe, Error, Warn, Info, Debug, Verbose, All
+    case off, severe, error, warn, info, debug, verbose, all
     
-    public static var levels: [SLFLogLevel] {return [Off, Severe, Error, Warn, Info, Debug, Verbose, All]}
-    public static var config: [SLFLogLevel] {return [Off, All]}
-    public static var issues: [SLFLogLevel] {return [Severe, Error, Warn]}
+    public static var levels: [SLFLogLevel] {return [off, severe, error, warn, info, debug, verbose, all]}
+    public static var config: [SLFLogLevel] {return [off, all]}
+    public static var issues: [SLFLogLevel] {return [severe, error, warn]}
     
     public var level: Int {
         return rawValue
@@ -48,14 +48,14 @@ public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, CustomStringC
     
     public var name: String {
         switch(self) {
-        case Off: return "Off"
-        case Severe: return "Severe" // Critical, Fatal
-        case Error: return "Error"
-        case Warn: return "Warn"
-        case Info: return "Info"
-        case Debug: return "Debug"
-        case Verbose: return "Verbose" // Trace
-        case All: return "All"
+        case .off: return "Off"
+        case .severe: return "Severe" // Critical, Fatal
+        case .error: return "Error"
+        case .warn: return "Warn"
+        case .info: return "Info"
+        case .debug: return "Debug"
+        case .verbose: return "Verbose" // Trace
+        case .all: return "All"
         }
     }
 

@@ -3,7 +3,7 @@
 //  SLF4SwiftTests
 //
 //  Created by phimage on 28/05/15.
-//  Copyright (c) 2015 phimage. All rights reserved.
+//  Copyright (c) 2015-2016 phimage. All rights reserved.
 //
 
 import XCTest
@@ -28,7 +28,7 @@ class SLF4SwiftTests: XCTestCase {
         SLFLogWarn("SLFLogWarn")
         SLFLogDebug("SLFLogDebug")
         SLFLogVerbose("SLFLogVerbose")
-        SLFLog(.Info, "SLFLog")
+        SLFLog(.info, "SLFLog")
     }
     
     func testDefaultLogger() {
@@ -39,7 +39,7 @@ class SLF4SwiftTests: XCTestCase {
         logger.warn("warn")
         logger.debug("debug")
         logger.verbose("verbose")
-        logger.log(.Info,"log")
+        logger.log(.info,"log")
     }
 
     func testLoggerNil() {
@@ -60,27 +60,27 @@ class SLF4SwiftTests: XCTestCase {
         //let b: Bool = logger === getLogger
         //XCTAssertTrue(b, "created logger must same as retrieved one")
     
-        logger.level = SLFLogLevel.Info
+        logger.level = SLFLogLevel.info
         logger.info("info message")
         logger.error("error")
         logger.severe("severe")
         logger.warn("warn")
         logger.debug("debug")
         logger.verbose("verbose")
-        logger.log(.Info,"log")
+        logger.log(.info,"log")
     }
     
     func testLogLevelMessage() {
-        SLFLogLevel.Info.message("SLFLogInfo")
-        SLFLogLevel.Error.message("SLFLogError")
-        SLFLogLevel.Severe.message("SLFLogSevere")
-        SLFLogLevel.Warn.message("SLFLogWarn")
-        SLFLogLevel.Debug.message("SLFLogDebug")
-        SLFLogLevel.Verbose.message("SLFLogVerbose")
+        SLFLogLevel.info.message("SLFLogInfo")
+        SLFLogLevel.error.message("SLFLogError")
+        SLFLogLevel.severe.message("SLFLogSevere")
+        SLFLogLevel.warn.message("SLFLogWarn")
+        SLFLogLevel.debug.message("SLFLogDebug")
+        SLFLogLevel.verbose.message("SLFLogVerbose")
         
-        SLFLogLevel.Info.trace()
-        SLFLogLevel.Info.value(SLF4Swift.getLogger("test"))
-        SLFLogLevel.Info.value(nil)
+        SLFLogLevel.info.trace()
+        SLFLogLevel.info.value(SLF4Swift.getLogger("test"))
+        SLFLogLevel.info.value(nil)
     }
     
 }

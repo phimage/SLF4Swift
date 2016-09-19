@@ -31,21 +31,11 @@ import Foundation
 #endif
 import XCGLogger
 
-public class XCGLoggerSLF: LoggerType {
+open class XCGLoggerSLF: LoggerType {
     
-    public class var instance : XCGLoggerSLF {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : XCGLoggerSLF?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = XCGLoggerSLF(logger: XCGLogger.defaultInstance())
-        }
-        return Static.instance!
-    }
+    open class var instance = XCGLoggerSLF(logger: XCGLogger.defaultInstance())
 
-    public var level: SLFLogLevel {
+    open var level: SLFLogLevel {
         get {
             return XCGLoggerSLF.toLevel(self.logger.outputLogLevel)
         }
@@ -53,44 +43,44 @@ public class XCGLoggerSLF: LoggerType {
             self.logger.outputLogLevel = XCGLoggerSLF.fromLevel(newValue)
         }
     }
-    public var name: LoggerKeyType {
+    open var name: LoggerKeyType {
         return self.logger.identifier
     }
 
-    public var logger: XCGLogger
+    open var logger: XCGLogger
     
     public init(logger: XCGLogger) {
         self.logger = logger
     }
 
-    public func info(message: LogMessageType) {
+    open func info(_ message: LogMessageType) {
         self.logger.info(message)
     }
-    public func error(message: LogMessageType) {
+    open func error(_ message: LogMessageType) {
         self.logger.error(message)
     }
-    public func severe(message: LogMessageType) {
+    open func severe(_ message: LogMessageType) {
         self.logger.severe(message)
     }
-    public func warn(message: LogMessageType) {
+    open func warn(_ message: LogMessageType) {
         self.logger.warning(message)
     }
-    public func debug(message: LogMessageType) {
+    open func debug(_ message: LogMessageType) {
         self.logger.debug(message)
     }
-    public func verbose(message: LogMessageType) {
+    open func verbose(_ message: LogMessageType) {
         self.logger.verbose(message)
     }
 
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         self.logger.logln(XCGLoggerSLF.fromLevel(level), closure: {message})
     }
 
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
 
-    public static func toLevel(level:XCGLogger.LogLevel) -> SLFLogLevel {
+    open static func toLevel(_ level:XCGLogger.LogLevel) -> SLFLogLevel {
         switch(level){
         case .None: return SLFLogLevel.Off
         case .Severe: return SLFLogLevel.Severe
@@ -103,7 +93,7 @@ public class XCGLoggerSLF: LoggerType {
     }
  
     
-    public static func fromLevel(level:SLFLogLevel) -> XCGLogger.LogLevel {
+    open static func fromLevel(_ level:SLFLogLevel) -> XCGLogger.LogLevel {
         switch(level){
         case .Off: return XCGLogger.LogLevel.None
         case .Severe: return XCGLogger.LogLevel.Severe
@@ -118,27 +108,15 @@ public class XCGLoggerSLF: LoggerType {
     
 }
 
-public class XCGLoggerSLFFactory: SLFLoggerFactory {
-    
-    public class var instance : XCGLoggerSLFFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : XCGLoggerSLFFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            let factory = XCGLoggerSLFFactory()
-            Static.instance = factory
-            factory.addLogger(XCGLoggerSLF.instance)
-        }
-        return Static.instance!
-    }
+open class XCGLoggerSLFFactory: SLFLoggerFactory {
+
+    open class var instance = XCGLoggerSLFFactory()
 
     public override init(){
         super.init()
     }
     
-    public override func doCreateLogger(name: LoggerKeyType) -> LoggerType {
+    open override func doCreateLogger(_ name: LoggerKeyType) -> LoggerType {
         let logger = XCGLogger()
         logger.identifier = name
         return  XCGLoggerSLF(logger: logger)

@@ -4,7 +4,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,44 +27,25 @@ SOFTWARE.
 
 import Foundation
 
-public class NullLogger: SLFLogger {
+open class NullLogger: SLFLogger {
 
-    public class var instance : NullLogger {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : NullLogger?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = NullLogger()
-        }
-        return Static.instance!
+    open static var instance = NullLogger()
+
+    fileprivate init() {
+        super.init(level: SLFLogLevel.off, name: "null")
     }
 
-    private init() {
-        super.init(level: SLFLogLevel.Off, name: "null")
-    }
-
-    override public func isLoggable(level: SLFLogLevel) -> Bool {
+    override open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return false
     }
-    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
+    override open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
         // do nothing
     }
 }
 
-public class NullLoggerFactory: SingleLoggerFactory {
-    public class var instance : NullLoggerFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : NullLoggerFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = NullLoggerFactory()
-        }
-        return Static.instance!
-    }
+open class NullLoggerFactory: SingleLoggerFactory {
+
+    open static var instance = NullLoggerFactory()
 
     internal init() {
         super.init(logger: NullLogger.instance)

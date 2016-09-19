@@ -31,21 +31,11 @@ import Foundation
 #endif
 import Loggerithm
 
-public class LoggerithmSLF: LoggerType {
+open class LoggerithmSLF: LoggerType {
     
-    public class var instance : LoggerithmSLF {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : LoggerithmSLF?
-        }
-        
-        dispatch_once(&Static.onceToken) {
-            Static.instance = LoggerithmSLF(logger: Loggerithm.defaultLogger, name: "default")
-        }
-        return Static.instance!
-    }
+    open class var instance  = LoggerithmSLF(logger: Loggerithm.defaultLogger, name: "default")
 
-    public var level: SLFLogLevel {
+    open var level: SLFLogLevel {
         get {
             return LoggerithmSLF.toLevel(self.logger.logLevel)
         }
@@ -53,43 +43,43 @@ public class LoggerithmSLF: LoggerType {
             self.logger.logLevel = LoggerithmSLF.fromLevel(newValue)
         }
     }
-    public var name: LoggerKeyType
+    open var name: LoggerKeyType
 
-    public var logger: Loggerithm
+    open var logger: Loggerithm
     
     public init(logger: Loggerithm, name: LoggerKeyType) {
         self.logger = logger
         self.name = name
     }
 
-    public func info(message: LogMessageType) {
+    open func info(_ message: LogMessageType) {
         self.logger.info(message)
     }
-    public func error(message: LogMessageType) {
+    open func error(_ message: LogMessageType) {
         self.logger.error(message)
     }
-    public func severe(message: LogMessageType) {
+    open func severe(_ message: LogMessageType) {
         self.logger.error(message)
     }
-    public func warn(message: LogMessageType) {
+    open func warn(_ message: LogMessageType) {
         self.logger.warning(message)
     }
-    public func debug(message: LogMessageType) {
+    open func debug(_ message: LogMessageType) {
         self.logger.debug(message)
     }
-    public func verbose(message: LogMessageType) {
+    open func verbose(_ message: LogMessageType) {
         self.logger.verbose(message)
     }
 
-    public func log(level: SLFLogLevel,_ message: LogMessageType) {
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
         self.logger.logWithLevel(LoggerithmSLF.fromLevel(level), message)
     }
 
-    public func isLoggable(level: SLFLogLevel) -> Bool {
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
         return level <= self.level
     }
 
-    public static func toLevel(level: LogLevel) -> SLFLogLevel {
+    open static func toLevel(_ level: LogLevel) -> SLFLogLevel {
         switch(level){
         case .Off: return SLFLogLevel.Off
         case .Error: return SLFLogLevel.Error
@@ -102,7 +92,7 @@ public class LoggerithmSLF: LoggerType {
     }
  
     
-    public static func fromLevel(level:SLFLogLevel) -> LogLevel {
+    open static func fromLevel(_ level:SLFLogLevel) -> LogLevel {
         switch(level){
         case .Off: return LogLevel.Off
         case .Severe: return LogLevel.Error
@@ -117,19 +107,21 @@ public class LoggerithmSLF: LoggerType {
     
 }
 
-public class LoggerithmSLFFactory: SLFLoggerFactory {
+open class LoggerithmSLFFactory: SLFLoggerFactory {
     
-    public class var instance : LoggerithmSLFFactory {
-        struct Static {
-            static var onceToken : dispatch_once_t = 0
-            static var instance : LoggerithmSLFFactory?
-        }
-        
-        dispatch_once(&Static.onceToken) {
+    private static var __once: () = {
             let factory = LoggerithmSLFFactory()
             Static.instance = factory
             factory.addLogger(LoggerithmSLF.instance)
+        }()
+    
+    open class var instance : LoggerithmSLFFactory {
+        struct Static {
+            static var onceToken : Int = 0
+            static var instance : LoggerithmSLFFactory?
         }
+        
+        _ = LoggerithmSLFFactory.__once
         return Static.instance!
     }
 
@@ -137,7 +129,7 @@ public class LoggerithmSLFFactory: SLFLoggerFactory {
         super.init()
     }
     
-    public override func doCreateLogger(name: LoggerKeyType) -> LoggerType {
+    open override func doCreateLogger(_ name: LoggerKeyType) -> LoggerType {
         let logger = Loggerithm()
         return  LoggerithmSLF(logger: logger, name: name)
     }

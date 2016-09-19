@@ -1,10 +1,10 @@
 //
-//  FileLogger.swift
+//  SystemLogger.swift
 //  SLF4Swift
 /*
 The MIT License (MIT)
 
-Copyright (c) 2015 Eric Marchand (phimage)
+Copyright (c) 2015-2016 Eric Marchand (phimage)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,28 +24,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
 import Foundation
 
-public class FileLogger: SLFLogger {
+open class SystemLogger: SLFLogger {
+    open static let LINE_DELIMITER = "\n"
     
-    var fileHandle: NSFileHandle!
-
-    public init?(level: SLFLogLevel, forWritingAtPath path: String, name: String? = nil) {
-        fileHandle = NSFileHandle(forWritingAtPath: path)
-        super.init(level: level, name: name ?? path)
-        if fileHandle == nil {
-            return nil
+    fileprivate static let stdout = FileHandle.standardOutput
+    fileprivate static let stderr = FileHandle.standardError
+    
+    override open func doLog(_ level: SLFLogLevel,_ message: LogMessageType) {
+        if level.isIssues() {
+            SystemLogger.errorln(message)
+        } else {
+            SystemLogger.println(message)
         }
     }
     
-    override public func doLog(level: SLFLogLevel,_ message: LogMessageType) {
-        if let data = (message as NSString).dataUsingEncoding(NSUTF8StringEncoding) {
-            fileHandle.writeData(data)
-        }
+    open class func errorln(_ message: LogMessageType) {
+        writeTo(stderr, message + SystemLogger.LINE_DELIMITER)
+    }
+    open class func println(_ message: LogMessageType) {
+        writeTo(stdout, message + SystemLogger.LINE_DELIMITER)
     }
     
-    public func close() {
-        fileHandle.closeFile()
+    open class func writeTo(_ handle: FileHandle, _ string: String) {
+        if let data = string.data(using: String.Encoding.utf8) {
+            handle.write(data)
+        }
     }
 }

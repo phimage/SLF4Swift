@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   s.name         = "SLF4Swift"
-  s.version      = "2.0.2"
+  s.version      = "3.0.0"
   s.summary      = "Simple Log Facade for Swift"
   s.description  = <<-DESC
                    Simple Log Facade for Swift serves as a simple facade
@@ -31,11 +31,11 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
 
   s.subspec "Core" do  |sp|
-    sp.source_files = "SLF4Swift/*.swift"
+    sp.source_files = "Sources/*.swift"
   end
 
   s.subspec "Impl" do  |sp|
-    sp.source_files = "SLF4Swift/Implementation/*.swift"
+    sp.source_files = "Sources/Implementation/*.swift"
     sp.dependency 'SLF4Swift/Core'
   end
 
