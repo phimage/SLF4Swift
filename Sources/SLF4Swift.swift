@@ -79,6 +79,30 @@ open class SLF4Swift {
     }
 }
 
+extension SLF4Swift {
+    public static func info(_ message: LogMessageType){
+        self.defaultLogger.info(message)
+    }
+    public static func error(_ message: LogMessageType){
+        self.defaultLogger.error(message)
+    }
+    public static func severe(_ message: LogMessageType){
+        self.defaultLogger.severe(message)
+    }
+    public static func warn(_ message: LogMessageType){
+        self.defaultLogger.warn(message)
+    }
+    public static func debug(_ message: LogMessageType){
+        self.defaultLogger.debug(message)
+    }
+    public static func verbose(_ message: LogMessageType){
+        self.defaultLogger.verbose(message)
+    }
+    public static func log(_ level: SLFLogLevel,_ message: LogMessageType){
+        self.defaultLogger.log(level, message)
+    }
+}
+
 public func SLFLogInfo(_ message: LogMessageType){
     SLF4Swift.defaultLogger.info(message)
 }

@@ -122,7 +122,7 @@ open class SLFLoggerFactory: LoggerFactoryType {
     
     fileprivate static func getDefaultLevel() -> SLFLogLevel {
         #if DEBUG
-            return  SLFLogLevel.Verbose
+            return  SLFLogLevel.verbose
             #else
             return SLFLogLevel.info
         #endif

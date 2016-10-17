@@ -75,6 +75,18 @@ public enum SLFLogLevel: Int, LogLevelType, Equatable, Comparable, CustomStringC
         return !isConfig()
     }
     
+    public var emoji: String {
+        switch(self) {
+        case .off: return "💤"
+        case .severe: return "💣" // Critical, Fatal
+        case .error: return "‼️"
+        case .warn: return "⚠️"
+        case .info: return "ℹ️"
+        case .debug: return "🔹"
+        case .verbose: return "🗯" // Trace
+        case .all: return "🎉"
+        }
+    }
 }
 public func ==(lhs: SLFLogLevel, rhs: SLFLogLevel) -> Bool {
     return lhs.rawValue == rhs.rawValue

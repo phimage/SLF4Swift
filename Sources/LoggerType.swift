@@ -159,4 +159,48 @@ open class SLFLogger: LoggerType {
 public let SLFDatePrefix: (SLFLogger,SLFLogLevel) -> String = { (logger,level) in
     return DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .short)
 }
+
+
+/* Allow to format log before logging into another logger */
+open class FormatterLogger: LoggerType {
+
+
+    public var name: String = "formatter"
+    public var level: SLFLogLevel { get { return logger.level } set { self.logger.level = newValue } }
+    public private(set) var logger: LoggerType
+    public let format: (SLFLogLevel, LogMessageType) -> (LogMessageType)
+ 
+    public init(logger: LoggerType, format: @escaping (SLFLogLevel, LogMessageType) -> (LogMessageType)) {
+        self.logger = logger
+        self.format = format
+    }
+    
+    open func info(_ message: LogMessageType) {
+        logger.info(format(.info, message))
+    }
+    open func error(_ message: LogMessageType) {
+           logger.info(format(.error, message))
+    }
+    open func severe(_ message: LogMessageType) {
+           logger.info(format(.severe, message))
+    }
+    open func warn(_ message: LogMessageType) {
+       logger.info(format(.warn, message))
+    }
+    open func debug(_ message: LogMessageType) {
+        logger.info(format(.debug, message))
+    }
+    open func verbose(_ message: LogMessageType) {
+        logger.info(format(.verbose, message))
+    }
+    
+    open func log(_ level: SLFLogLevel,_ message: LogMessageType) {
+        logger.info(format(level, message))
+    }
+    open func isLoggable(_ level: SLFLogLevel) -> Bool {
+        return logger.isLoggable(level)
+    }
+ 
+}
+
     
